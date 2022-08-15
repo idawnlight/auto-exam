@@ -8,7 +8,7 @@
 
 #include "BaseProblem.h"
 
-BaseProblem::BaseProblem() : problemType(Unknown), score(1) {
+BaseProblem::BaseProblem() : problemType(Default), score(1) {
 
 }
 

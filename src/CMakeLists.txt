@@ -9,7 +9,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        ui/window/EntryWidget.cpp ui/window/EntryWidget.h ui/window/SetupWindow.cpp ui/window/SetupWindow.h ui/window/ExamWindow.cpp ui/window/ExamWindow.h ui/widgets/ProblemIndicatorLayout.cpp ui/widgets/ProblemIndicatorLayout.h models/BaseProblem.cpp models/BaseProblem.h models/Paper.cpp models/Paper.h models/AnswerPaper.cpp models/AnswerPaper.h models/problems/SingleChoiceProblem.cpp models/problems/SingleChoiceProblem.h models/problems/MultipleChoiceProblem.cpp models/problems/MultipleChoiceProblem.h models/problems/TrueOrFalseProblem.cpp models/problems/TrueOrFalseProblem.h models/problems/ShortAnswerProblem.cpp models/problems/ShortAnswerProblem.h)
+        ui/window/EntryWidget.cpp ui/window/EntryWidget.h ui/window/SetupWindow.cpp ui/window/SetupWindow.h ui/window/ExamWindow.cpp ui/window/ExamWindow.h ui/widgets/ProblemIndicatorWidget.cpp ui/widgets/ProblemIndicatorWidget.h models/BaseProblem.cpp models/BaseProblem.h models/Paper.cpp models/Paper.h models/AnswerPaper.cpp models/AnswerPaper.h models/problems/SingleChoiceProblem.cpp models/problems/SingleChoiceProblem.h models/problems/MultipleChoiceProblem.cpp models/problems/MultipleChoiceProblem.h models/problems/TrueOrFalseProblem.cpp models/problems/TrueOrFalseProblem.h models/problems/ShortAnswerProblem.cpp models/problems/ShortAnswerProblem.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(auto_exam

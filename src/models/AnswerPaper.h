@@ -12,8 +12,18 @@
 #include "Paper.h"
 
 class AnswerPaper {
+public:
+    explicit AnswerPaper();
+    explicit AnswerPaper(const std::shared_ptr<Paper> &paper);
+
+    const std::shared_ptr<Paper> &getPaper() const;
+    void setPaper(const std::shared_ptr<Paper> &paper);
+    const std::vector<json> &getAnswers() const;
+    void setAnswers(const std::vector<json> &answers);
+
 protected:
     std::shared_ptr<Paper> paper;
+    std::vector<json> answers;
 };
 
 

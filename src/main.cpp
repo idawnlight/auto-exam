@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
                 }
                 break;
             default:
-                std::cout << "Unknown" << std::endl;
+                std::cout << "Default" << std::endl;
                 break;
         }
     }

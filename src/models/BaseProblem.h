@@ -18,12 +18,12 @@ enum ProblemType {
     MultipleChoice = 1,
     TrueOrFalse = 2,
     ShortAnswer = 3,
-    Unknown = -1
+    Default = -1
 };
 
 class BaseProblem {
 protected:
-    ProblemType problemType = Unknown;
+    ProblemType problemType = Default;
     int score;
 
 public:

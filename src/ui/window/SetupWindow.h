@@ -12,6 +12,7 @@
 #include <QtWidgets>
 
 #include "models/Paper.h"
+#include "../widgets/ProblemIndicatorWidget.h"
 
 class SetupWindow : public QWidget {
     Q_OBJECT

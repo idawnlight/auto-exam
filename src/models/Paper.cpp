@@ -98,6 +98,14 @@ Paper Paper::fromJson(const json j) {
     return p;
 }
 
+const std::vector<std::shared_ptr<BaseProblem>> &Paper::getProblems() const {
+    return problems;
+}
+
+void Paper::setProblems(const std::vector<std::shared_ptr<BaseProblem>> &problems) {
+    Paper::problems = problems;
+}
+
 std::shared_ptr<BaseProblem> problemFromJson(const json j) {
     switch (j.at("problemType").get<ProblemType>())
     {

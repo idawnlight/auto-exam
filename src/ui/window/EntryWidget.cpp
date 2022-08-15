@@ -19,17 +19,17 @@ EntryWidget::EntryWidget(QWidget *parent) {
 //    mainLayout->addWidget(titleLabel);
 
     // Selections
-    auto setupButton = new QPushButton("制卷");
-    mainLayout->addWidget(setupButton);
+    auto editButton = new QPushButton("制卷");
+    mainLayout->addWidget(editButton);
 
     auto examButton = new QPushButton("答题");
     mainLayout->addWidget(examButton);
 
     // Connect signals
-    connect(setupButton, &QPushButton::clicked, this, &EntryWidget::setupPaper);
+    connect(editButton, &QPushButton::clicked, this, &EntryWidget::editPaper);
     connect(examButton, &QPushButton::clicked, this, &EntryWidget::startExam);
 
     // Close window on click
-    connect(setupButton, &QPushButton::clicked, this, &EntryWidget::close);
+    connect(editButton, &QPushButton::clicked, this, &EntryWidget::close);
     connect(examButton, &QPushButton::clicked, this, &EntryWidget::close);
 }

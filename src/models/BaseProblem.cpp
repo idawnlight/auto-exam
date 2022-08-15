@@ -40,6 +40,7 @@ int BaseProblem::checkAnswer(json) const {
 json BaseProblem::toJson() {
     return json{
         {"problemType",  problemType},
-        {"score", score}
+        {"score", score},
+        {"content", content}
     };
 }

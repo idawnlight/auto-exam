@@ -1,6 +1,6 @@
 /**
  * @project Automatic Examination
- * @file SetupWindow.h
+ * @file EditWindow.h
  * @location src/ui/window
  * @brief Window for setup paper
  * @date 2022/8/12
@@ -13,12 +13,16 @@
 
 #include "models/Paper.h"
 #include "../widgets/ProblemIndicatorWidget.h"
+#include "../widgets/infoLayout/EditInfoLayout.h"
 
-class SetupWindow : public QWidget {
+class EditWindow : public QWidget {
     Q_OBJECT
 
+protected:
+    EditInfoLayout * leftInfoLayout;
+
 public:
-    SetupWindow(QWidget *parent = nullptr);
+    EditWindow(QWidget *parent = nullptr);
 
 public slots:
     void show();

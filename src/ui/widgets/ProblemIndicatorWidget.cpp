@@ -8,12 +8,11 @@
 
 #include "ProblemIndicatorWidget.h"
 
-ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p) : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p)) {
-    isEditing = true;
-}
+ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p)
+    : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), true) {}
 
-ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p)
-    : answerPaper(p), layout(new QGridLayout()) {
+ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, bool isEditing)
+    : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing) {
 //    setWidgetResizable(true);
 //    setMaximumWidth(300);
 //    setMinimumHeight(600);
@@ -36,18 +35,29 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p)
 
     const QSize btnSize = QSize(64, 50);
     buttons.reserve(1000);
-    for (int i = 0; i < 73; i++) {
-        buttons[i] = new QPushButton();
-        buttons[i]->setText(QString::number(i + 1));
-        buttons[i]->setFixedSize(btnSize);
+
+    auto size = answerPaper->getPaper()->getProblems().size();
+    for (int i = 0; i <= size; i++) {
+        auto btn = new QPushButton();
+
+        if (i != size) {
+            btn->setText(QString::number(i + 1));
+        } else if (isEditing) {
+            btn->setText("+");
+            btn->setStyleSheet(buttonStyleFocus);
+        } else {
+            break;
+        }
+
+        btn->setFixedSize(btnSize);
+        layout->addWidget(btn, i / 4, i % 4);
+        buttons.push_back(btn);
 //        if (i % 3 == 0) {
 //            buttons[i]->setStyleSheet(buttonStyleWrong);
 //        } else {
 //            buttons[i]->setStyleSheet(buttonStylePartWrong);
 //        }
-        buttons[i]->setStyleSheet("");
-
-        layout->addWidget(buttons[i], i / 4, i % 4);
+//        buttons[i]->setStyleSheet("");
     }
 
 //    layout->addWidget(buttons[0]);

@@ -18,7 +18,7 @@ public:
     EntryWidget(QWidget *parent = nullptr);
 
 signals:
-    void setupPaper();
+    void editPaper();
     void startExam();
 };
 

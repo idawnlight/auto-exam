@@ -17,7 +17,7 @@ class ProblemIndicatorWidget : public QScrollArea {
     Q_OBJECT
 public:
     ProblemIndicatorWidget(std::shared_ptr<Paper>);
-    ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>);
+    ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
 
 protected:
     bool isEditing = false;
@@ -28,6 +28,7 @@ protected:
     const QString buttonStyleWrong = "border: 2px solid red;";
     const QString buttonStyleRight = "border: 2px solid green;";
     const QString buttonStylePartWrong = "border: 2px solid orange;";
+    const QString buttonStyleFocus = "border: 2px solid white;";
 };
 
 

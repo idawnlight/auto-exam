@@ -7,7 +7,7 @@
  */
 
 #include "ui/window/EntryWidget.h"
-#include "ui/window/SetupWindow.h"
+#include "ui/window/EditWindow.h"
 #include "ui/window/ExamWindow.h"
 
 #include "models/Paper.h"
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 //    auto test2 = j.get<Paper>();
     auto test3 = std::make_shared<Paper>(test2);
 
-    for (const auto& i : test3->problems) {
+    for (const auto& i : test3->getProblems()) {
         switch (i->getProblemType()) {
             case SingleChoice:
                 {
@@ -66,9 +66,9 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     EntryWidget entry;
-    SetupWindow setup;
+    EditWindow setup;
 
-    QObject::connect(&entry, &EntryWidget::setupPaper, &setup, &SetupWindow::show);
+    QObject::connect(&entry, &EntryWidget::editPaper, &setup, &EditWindow::show);
 
     entry.show();
     return a.exec();

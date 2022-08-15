@@ -19,13 +19,17 @@
 #include <vector>
 
 class Paper {
-public:
+protected:
     std::vector<std::shared_ptr<BaseProblem>> problems;
-    json toJson() const;
-    static Paper fromJson(const json);
 
 public:
+    const std::vector<std::shared_ptr<BaseProblem>> &getProblems() const;
+
+    void setProblems(const std::vector<std::shared_ptr<BaseProblem>> &problems);
+
     void mock();
+    json toJson() const;
+    static Paper fromJson(const json);
 };
 
 std::shared_ptr<BaseProblem> problemFromJson(const json j);

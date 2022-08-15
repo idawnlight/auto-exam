@@ -25,6 +25,7 @@ class BaseProblem {
 protected:
     ProblemType problemType = Default;
     int score;
+    std::string content;
 
 public:
     BaseProblem();

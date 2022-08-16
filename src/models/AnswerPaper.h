@@ -16,7 +16,7 @@ public:
     explicit AnswerPaper();
     explicit AnswerPaper(const std::shared_ptr<Paper> &paper);
 
-    const std::shared_ptr<Paper> &getPaper() const;
+    std::shared_ptr<Paper> getPaper();
     void setPaper(const std::shared_ptr<Paper> &paper);
     const std::vector<json> &getAnswers() const;
     void setAnswers(const std::vector<json> &answers);

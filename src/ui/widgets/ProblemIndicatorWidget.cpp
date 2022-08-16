@@ -12,7 +12,7 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p)
     : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), true) {}
 
 ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, bool isEditing)
-    : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing) {
+    : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing), buttonGroup(new QButtonGroup(this)) {
 //    setWidgetResizable(true);
 //    setMaximumWidth(300);
 //    setMinimumHeight(600);
@@ -41,10 +41,25 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
         auto btn = new QPushButton();
 
         if (i != size) {
+            buttonGroup->addButton(btn);
             btn->setText(QString::number(i + 1));
+            btn->setCheckable(true);
+            btn->setStyleSheet(buttonStyleDefault);
+//            switch (i % 3) {
+//                case 0:
+//                    btn->setStyleSheet(buttonStyleDefault + buttonStyleRight);
+//                    break;
+//                case 1:
+//                    btn->setStyleSheet(buttonStyleDefault + buttonStylePartRight);
+//                    break;
+//                case 2:
+//                    btn->setStyleSheet(buttonStyleDefault + buttonStyleWrong);
+//                    break;
+//            }
         } else if (isEditing) {
             btn->setText("+");
-            btn->setStyleSheet(buttonStyleFocus);
+            btn->setStyleSheet(buttonStyleDefault);
+            connect(btn, &QAbstractButton::clicked, this, &ProblemIndicatorWidget::addProblem);
         } else {
             break;
         }
@@ -55,7 +70,7 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
 //        if (i % 3 == 0) {
 //            buttons[i]->setStyleSheet(buttonStyleWrong);
 //        } else {
-//            buttons[i]->setStyleSheet(buttonStylePartWrong);
+//            buttons[i]->setStyleSheet(buttonStylePartRight);
 //        }
 //        buttons[i]->setStyleSheet("");
     }
@@ -69,5 +84,17 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
 //        }
 //    }
 
+    connect(buttonGroup, &QButtonGroup::buttonClicked, this, &ProblemIndicatorWidget::problemClicked);
+
     layout->setSpacing(1);
+}
+
+void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
+    auto index = button->text().toInt() - 1;
+    qDebug() << button->text();
+    emit problemChanged(answerPaper->getPaper()->getProblem(index), index);
+}
+
+void ProblemIndicatorWidget::addProblem() {
+
 }

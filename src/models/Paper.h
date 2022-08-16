@@ -25,7 +25,9 @@ protected:
 public:
     const std::vector<std::shared_ptr<BaseProblem>> &getProblems() const;
 
-    void setProblems(const std::vector<std::shared_ptr<BaseProblem>> &problems);
+    std::shared_ptr<BaseProblem> getProblem(int index);
+    int problemCount();
+    double scoreCount();
 
     void mock();
     json toJson() const;

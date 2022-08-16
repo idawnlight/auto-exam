@@ -14,12 +14,15 @@
 #include "models/Paper.h"
 #include "../widgets/ProblemIndicatorWidget.h"
 #include "../widgets/infoLayout/EditInfoLayout.h"
+#include "../widgets/ProblemEditor.h"
 
 class EditWindow : public QWidget {
     Q_OBJECT
 
 protected:
     EditInfoLayout * leftInfoLayout;
+    ProblemEditor * problemEditor;
+    std::shared_ptr<Paper> paper;
 
 public:
     EditWindow(QWidget *parent = nullptr);

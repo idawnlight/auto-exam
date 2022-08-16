@@ -14,7 +14,7 @@ AnswerPaper::AnswerPaper() {
 
 AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper) {}
 
-const std::shared_ptr<Paper> &AnswerPaper::getPaper() const {
+std::shared_ptr<Paper> AnswerPaper::getPaper() {
     return paper;
 }
 

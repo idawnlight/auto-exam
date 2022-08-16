@@ -75,10 +75,13 @@
 
 void Paper::mock() {
     for (int i = 0; i < 4; i++) {
-        problems.push_back(std::make_shared<SingleChoiceProblem>());
-        problems.push_back(std::make_shared<MultipleChoiceProblem>());
-        problems.push_back(std::make_shared<TrueOrFalseProblem>());
-        problems.push_back(std::make_shared<ShortAnswerProblem>());
+        auto x = std::make_shared<SingleChoiceProblem>();
+        x->setContent("这是题目。");
+        problems.push_back(x);
+//        problems.push_back(std::make_shared<SingleChoiceProblem>());
+//        problems.push_back(std::make_shared<MultipleChoiceProblem>());
+//        problems.push_back(std::make_shared<TrueOrFalseProblem>());
+//        problems.push_back(std::make_shared<ShortAnswerProblem>());
     }
 }
 
@@ -98,12 +101,24 @@ Paper Paper::fromJson(const json j) {
     return p;
 }
 
-const std::vector<std::shared_ptr<BaseProblem>> &Paper::getProblems() const {
-    return problems;
+std::shared_ptr<BaseProblem> Paper::getProblem(int index) {
+    return problems[index];
 }
 
-void Paper::setProblems(const std::vector<std::shared_ptr<BaseProblem>> &problems) {
-    Paper::problems = problems;
+int Paper::problemCount() {
+    return problems.size();
+}
+
+double Paper::scoreCount() {
+    double score = 0;
+    for (auto i : problems) {
+        score += i->getScore();
+    }
+    return score;
+}
+
+const std::vector<std::shared_ptr<BaseProblem>> &Paper::getProblems() const {
+    return problems;
 }
 
 std::shared_ptr<BaseProblem> problemFromJson(const json j) {
@@ -113,15 +128,11 @@ std::shared_ptr<BaseProblem> problemFromJson(const json j) {
             return std::make_shared<SingleChoiceProblem>(j);
         case MultipleChoice:
             return std::make_shared<MultipleChoiceProblem>(j);
-            break;
         case TrueOrFalse:
             return std::make_shared<TrueOrFalseProblem>(j);
-            break;
         case ShortAnswer:
             return std::make_shared<ShortAnswerProblem>(j);
-            break;
         default:
             return std::make_shared<BaseProblem>(j);
-            break;
     }
 }

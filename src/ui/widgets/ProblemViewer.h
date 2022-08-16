@@ -14,6 +14,8 @@
 class ProblemViewer : public QWidget {
     Q_OBJECT
 
+protected:
+    int currentIndex;
 };
 
 

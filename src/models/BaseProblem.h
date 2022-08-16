@@ -24,16 +24,19 @@ enum ProblemType {
 class BaseProblem {
 protected:
     ProblemType problemType = Default;
-    int score;
+    double score;
     std::string content;
 
 public:
     BaseProblem();
     BaseProblem(json);
+
     ProblemType getProblemType() const;
     void setProblemType(ProblemType type);
-    int getScore() const;
+    double getScore() const;
     void setScore(int score);
+    const std::string &getContent() const;
+    void setContent(const std::string &content);
 
     virtual int checkAnswer(json) const;
     virtual json toJson();

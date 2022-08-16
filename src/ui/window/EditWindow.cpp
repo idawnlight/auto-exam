@@ -8,7 +8,8 @@
 
 #include "EditWindow.h"
 
-EditWindow::EditWindow(QWidget *parent) : QWidget(parent), leftInfoLayout(new EditInfoLayout()) {
+EditWindow::EditWindow(QWidget *parent)
+    : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()) {
     auto mainLayout = new QHBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("制卷 - 自动考试系统");
@@ -20,7 +21,6 @@ EditWindow::EditWindow(QWidget *parent) : QWidget(parent), leftInfoLayout(new Ed
     leftLayout->addWidget(leftHeader);
 
     leftLayout->addLayout(leftInfoLayout);
-
 
     leftLayout->addStretch();
     auto leftBottomButtonGroup = new QHBoxLayout();
@@ -34,12 +34,15 @@ EditWindow::EditWindow(QWidget *parent) : QWidget(parent), leftInfoLayout(new Ed
     auto centerLayout = new QVBoxLayout();
     auto centerLabel = new QLabel("<h2>当前题目</h2>");
     centerLayout->addWidget(centerLabel);
+    centerLayout->addLayout(problemEditor);
 
     // Right Part: Problem Indicator / Navigator
-    auto paper = std::make_shared<Paper>();
+    paper = std::make_shared<Paper>();
+    paper->mock();
     auto problemIndicator = new ProblemIndicatorWidget(paper);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);
+    connect(problemIndicator, &ProblemIndicatorWidget::problemChanged, problemEditor, &ProblemEditor::setProblem);
 
     // Split layouts
     mainLayout->addLayout(leftLayout, 1);

@@ -9,7 +9,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        ui/window/EntryWidget.cpp ui/window/EntryWidget.h ui/window/EditWindow.cpp ui/window/EditWindow.h ui/window/ExamWindow.cpp ui/window/ExamWindow.h ui/widgets/ProblemIndicatorWidget.cpp ui/widgets/ProblemIndicatorWidget.h models/BaseProblem.cpp models/BaseProblem.h models/Paper.cpp models/Paper.h models/AnswerPaper.cpp models/AnswerPaper.h models/problems/SingleChoiceProblem.cpp models/problems/SingleChoiceProblem.h models/problems/MultipleChoiceProblem.cpp models/problems/MultipleChoiceProblem.h models/problems/TrueOrFalseProblem.cpp models/problems/TrueOrFalseProblem.h models/problems/ShortAnswerProblem.cpp models/problems/ShortAnswerProblem.h ui/widgets/AlignedInfoLayout.cpp ui/widgets/AlignedInfoLayout.h ui/widgets/ProblemViewer.cpp ui/widgets/ProblemViewer.h ui/widgets/ScoreViewer.cpp ui/widgets/ScoreViewer.h ui/widgets/infoLayout/EditInfoLayout.cpp ui/widgets/infoLayout/EditInfoLayout.h)
+        ui/window/EntryWidget.cpp ui/window/EntryWidget.h ui/window/EditWindow.cpp ui/window/EditWindow.h ui/window/ExamWindow.cpp ui/window/ExamWindow.h ui/widgets/ProblemIndicatorWidget.cpp ui/widgets/ProblemIndicatorWidget.h models/BaseProblem.cpp models/BaseProblem.h models/Paper.cpp models/Paper.h models/AnswerPaper.cpp models/AnswerPaper.h models/problems/SingleChoiceProblem.cpp models/problems/SingleChoiceProblem.h models/problems/MultipleChoiceProblem.cpp models/problems/MultipleChoiceProblem.h models/problems/TrueOrFalseProblem.cpp models/problems/TrueOrFalseProblem.h models/problems/ShortAnswerProblem.cpp models/problems/ShortAnswerProblem.h ui/widgets/AlignedInfoLayout.cpp ui/widgets/AlignedInfoLayout.h ui/widgets/ProblemViewer.cpp ui/widgets/ProblemViewer.h ui/widgets/ScoreViewer.cpp ui/widgets/ScoreViewer.h ui/widgets/infoLayout/EditInfoLayout.cpp ui/widgets/infoLayout/EditInfoLayout.h ui/widgets/ProblemEditor.cpp ui/widgets/ProblemEditor.h ui/widgets/infoLayout/ExamInfoLayout.cpp ui/widgets/infoLayout/ExamInfoLayout.h ui/widgets/problemEditor/SingleChoiceProblemEditor.cpp ui/widgets/problemEditor/SingleChoiceProblemEditor.h ui/widgets/problemEditor/MultipleChoiceProblemEditor.cpp ui/widgets/problemEditor/MultipleChoiceProblemEditor.h ui/widgets/problemEditor/ShortAnswerProblemEditor.cpp ui/widgets/problemEditor/ShortAnswerProblemEditor.h ui/widgets/problemEditor/TrueOrFalseProblemEditor.cpp ui/widgets/problemEditor/TrueOrFalseProblemEditor.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(auto_exam
@@ -38,9 +38,10 @@ target_link_libraries(auto_exam PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(auto_exam PRIVATE nlohmann_json::nlohmann_json)
 
 set_target_properties(auto_exam PROPERTIES
-        MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+        MACOSX_BUNDLE_GUI_IDENTIFIER com.idawnlight.seu.auto_exam
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
         MACOSX_BUNDLE TRUE
         WIN32_EXECUTABLE TRUE
         )

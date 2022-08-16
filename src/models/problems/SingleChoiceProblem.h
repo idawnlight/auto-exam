@@ -14,10 +14,16 @@
 class SingleChoiceProblem : public BaseProblem {
 protected:
     int answer;
+    std::vector<std::string> options;
 
 public:
     SingleChoiceProblem();
     SingleChoiceProblem(json);
+
+    int getAnswer() const;
+    void setAnswer(int answer);
+    std::vector<std::string> &getOptions();
+    void setOptions(const std::vector<std::string> &options);
 
     json toJson() override;
 };

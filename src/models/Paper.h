@@ -23,10 +23,11 @@ protected:
     std::vector<std::shared_ptr<BaseProblem>> problems;
 
 public:
-    const std::vector<std::shared_ptr<BaseProblem>> &getProblems() const;
+    std::vector<std::shared_ptr<BaseProblem>> &getProblems();
 
     std::shared_ptr<BaseProblem> getProblem(int index);
     int problemCount();
+    int problemCount(ProblemType);
     double scoreCount();
 
     void mock();

@@ -74,9 +74,9 @@
 //}
 
 void Paper::mock() {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 2; i++) {
         auto x = std::make_shared<SingleChoiceProblem>();
-        x->setContent("这是题目。");
+        x->setContent("这是题目。" + std::to_string(i));
         problems.push_back(x);
 //        problems.push_back(std::make_shared<SingleChoiceProblem>());
 //        problems.push_back(std::make_shared<MultipleChoiceProblem>());
@@ -109,6 +109,16 @@ int Paper::problemCount() {
     return problems.size();
 }
 
+int Paper::problemCount(ProblemType t) {
+    int count = 0;
+    for (auto i : problems) {
+        if (i->getProblemType() == t) {
+            count++;
+        }
+    }
+    return count;
+}
+
 double Paper::scoreCount() {
     double score = 0;
     for (auto i : problems) {
@@ -117,7 +127,7 @@ double Paper::scoreCount() {
     return score;
 }
 
-const std::vector<std::shared_ptr<BaseProblem>> &Paper::getProblems() const {
+std::vector<std::shared_ptr<BaseProblem>> &Paper::getProblems() {
     return problems;
 }
 

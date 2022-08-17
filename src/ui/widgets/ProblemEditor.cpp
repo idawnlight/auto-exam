@@ -10,11 +10,25 @@
 
 ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> problem)
     : QVBoxLayout(parent), stackedWidget(new QStackedWidget()), problem(problem),
-      emptyWidget(new QWidget), singleChoiceProblemEditor(new SingleChoiceProblemEditor) {
+      emptyWidget(new QWidget), singleChoiceProblemEditor(new SingleChoiceProblemEditor),
+      navigatorWidget(new NavigatorWidget) {
     addWidget(stackedWidget);
 
     stackedWidget->addWidget(singleChoiceProblemEditor);
     stackedWidget->addWidget(emptyWidget);
+
+    auto bottomLayout = new QHBoxLayout();
+
+    removeButton = new QPushButton("删除问题");
+    removeButton->setEnabled(false);
+    bottomLayout->addWidget(removeButton);
+    connect(removeButton, &QAbstractButton::clicked, this, &ProblemEditor::removeProblemClicked);
+
+    bottomLayout->addStretch();
+
+    bottomLayout->addWidget(navigatorWidget);
+
+    addLayout(bottomLayout, 0);
 
     if (problem != nullptr) {
         refresh();
@@ -25,9 +39,13 @@ ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> probl
 
 void ProblemEditor::refresh() {
     if (this->problem == nullptr) {
-        stackedWidget->setCurrentIndex(1);
+        removeButton->setEnabled(false);
+        navigatorWidget->setStatus(NavigatorStatus::None);
+        stackedWidget->setCurrentWidget(emptyWidget);
         return;
     }
+
+    removeButton->setEnabled(true);
 
     switch (problem->getProblemType()) {
         case SingleChoice:
@@ -63,8 +81,17 @@ void ProblemEditor::refresh() {
 //    stackedWidget->setCurrentIndex(0);
 }
 
-void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index) {
+void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status) {
     currentIndex = index;
     this->problem = problem;
+    navigatorWidget->setStatus(status);
     refresh();
+}
+
+void ProblemEditor::removeProblemClicked() {
+    int ret = QMessageBox::question(nullptr, "删除问题", "确定删除该问题吗？");
+
+    if (ret == QMessageBox::Yes) {
+        emit removeProblem(currentIndex);
+    }
 }

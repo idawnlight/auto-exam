@@ -15,7 +15,6 @@ class AlignedInfoLayout : public QGridLayout {
     Q_OBJECT
 
 protected:
-    QList<QPair<QString, QString>> kv;
     QList<QPair<QLabel *, QLabel *>> labels;
 
 public:

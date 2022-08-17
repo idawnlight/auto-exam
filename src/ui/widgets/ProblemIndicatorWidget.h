@@ -12,6 +12,7 @@
 #include <QtWidgets>
 
 #include "models/AnswerPaper.h"
+#include "NavigatorWidget.h"
 
 class ProblemIndicatorWidget : public QScrollArea {
     Q_OBJECT
@@ -29,19 +30,26 @@ public:
     ProblemIndicatorWidget(std::shared_ptr<Paper>);
     ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
 
+    void touchPaper();
+
 public slots:
     void problemClicked(QAbstractButton *button);
     void addProblem();
+    void removeProblem(int index);
 
 signals:
-    void problemChanged(std::shared_ptr<BaseProblem>, int index);
+    void selectionChanged(std::shared_ptr<BaseProblem>, int index, NavigatorStatus status);
+    void paperChanged(std::shared_ptr<Paper>);
 
 protected:
     bool isEditing = false;
-    QGridLayout * layout;
+    const QSize btnSize = QSize(64, 50);
+    QGridLayout* layout;
     QButtonGroup* buttonGroup;
     QList<QPushButton *> buttons;
     std::shared_ptr<AnswerPaper> answerPaper;
+
+    void appendButton(QAbstractButton *button);
 
     const QString buttonStyleDefault = "QPushButton {\n"
                                        "    border: 2px solid #b6b6b6;\n"

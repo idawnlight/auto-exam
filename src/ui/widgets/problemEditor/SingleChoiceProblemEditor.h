@@ -30,6 +30,7 @@ public slots:
 
 protected:
     std::shared_ptr<SingleChoiceProblem> problem;
+    QPlainTextEdit * contentEdit;
 
 };
 

@@ -9,7 +9,8 @@
 #include "EditWindow.h"
 
 EditWindow::EditWindow(QWidget *parent)
-    : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()) {
+    : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()),
+      problemLabel(new ProblemLabel()) {
     auto mainLayout = new QHBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("制卷 - 自动考试系统");
@@ -32,8 +33,7 @@ EditWindow::EditWindow(QWidget *parent)
 
     // Center Part: Main Editor
     auto centerLayout = new QVBoxLayout();
-    auto centerLabel = new QLabel("<h2>当前题目</h2>");
-    centerLayout->addWidget(centerLabel);
+    centerLayout->addWidget(problemLabel);
     centerLayout->addLayout(problemEditor);
 
     // Right Part: Problem Indicator / Navigator
@@ -42,7 +42,12 @@ EditWindow::EditWindow(QWidget *parent)
     auto problemIndicator = new ProblemIndicatorWidget(paper);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);
-    connect(problemIndicator, &ProblemIndicatorWidget::problemChanged, problemEditor, &ProblemEditor::setProblem);
+    connect(problemIndicator, &ProblemIndicatorWidget::selectionChanged, problemEditor, &ProblemEditor::setProblem);
+    connect(problemIndicator, &ProblemIndicatorWidget::selectionChanged, problemLabel, &ProblemLabel::setProblem);
+    connect(problemIndicator, &ProblemIndicatorWidget::paperChanged, leftInfoLayout, &EditInfoLayout::updateEditInfo);
+    problemIndicator->touchPaper();
+
+    connect(problemEditor, &ProblemEditor::removeProblem, problemIndicator, &ProblemIndicatorWidget::removeProblem);
 
     // Split layouts
     mainLayout->addLayout(leftLayout, 1);

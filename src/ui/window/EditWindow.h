@@ -15,6 +15,7 @@
 #include "../widgets/ProblemIndicatorWidget.h"
 #include "../widgets/infoLayout/EditInfoLayout.h"
 #include "../widgets/ProblemEditor.h"
+#include "../widgets/ProblemLabel.h"
 
 class EditWindow : public QWidget {
     Q_OBJECT
@@ -22,6 +23,8 @@ class EditWindow : public QWidget {
 protected:
     EditInfoLayout * leftInfoLayout;
     ProblemEditor * problemEditor;
+    ProblemLabel * problemLabel;
+
     std::shared_ptr<Paper> paper;
 
 public:

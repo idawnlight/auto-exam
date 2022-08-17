@@ -13,20 +13,20 @@ AlignedInfoLayout::AlignedInfoLayout(QWidget *parent) : QGridLayout(parent) {
 }
 
 void AlignedInfoLayout::addInfo(QString key, QString value) {
+    auto keyLabel = new QLabel(key + " :");
+    keyLabel->setProperty("key", key);
     if (key == " ") {
-        labels.append(QPair<QLabel *, QLabel *>(new QLabel(" "), new QLabel(" ")));
-    } else {
-        kv.append(QPair<QString, QString>(key, value));
-        labels.append(QPair<QLabel *, QLabel *>(new QLabel(key + " :"), new QLabel(value)));
+        keyLabel->setText(" ");
     }
+    labels.append(QPair<QLabel *, QLabel *>(keyLabel, new QLabel(value)));
     addWidget(labels.last().first, labels.size() - 1, 0, 1, 1);
     addWidget(labels.last().second, labels.size() - 1, 1, 1, 2);
 }
 
 void AlignedInfoLayout::updateInfo(QString key, QString value) {
-    for (int i = 0; i < kv.size(); i++) {
-        if (kv[i].first == key) {
-            kv[i].second = value;
+    for (int i = 0; i < labels.size(); i++) {
+        auto x = labels[i].first->text();
+        if (labels[i].first->property("key") == key) {
             labels[i].second->setText(value);
             return;
         }

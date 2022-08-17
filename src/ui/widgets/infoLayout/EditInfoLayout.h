@@ -10,12 +10,16 @@
 #define AUTO_EXAM_EDITINFOLAYOUT_H
 
 #include "../AlignedInfoLayout.h"
+#include "models/Paper.h"
 
 class EditInfoLayout : public AlignedInfoLayout {
     Q_OBJECT
 
 public:
     explicit EditInfoLayout(QWidget *parent = nullptr);
+
+public slots:
+    void updateEditInfo(std::shared_ptr<Paper> p);
 };
 
 

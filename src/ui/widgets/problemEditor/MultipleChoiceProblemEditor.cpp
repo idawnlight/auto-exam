@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file MultipleChoiceProblemEditor.cpp
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
@@ -11,13 +11,13 @@
 MultipleChoiceProblemEditor::MultipleChoiceProblemEditor(QWidget *parent)
     : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
 
-    layout->addLayout(optionLayout, 1);
+    layout->addLayout(optionLayout);
 
     auto addButton = new QPushButton("添加选项");
-    buttonLayout->addWidget(addButton, 0);
+    buttonLayout->addWidget(addButton);
     connect(addButton, &QAbstractButton::clicked, this, &MultipleChoiceProblemEditor::addOption);
 
-    layout->addLayout(buttonLayout, 0);
+    layout->addLayout(buttonLayout);
 }
 
 void MultipleChoiceProblemEditor::setProblem(std::shared_ptr<MultipleChoiceProblem> p) {
@@ -80,7 +80,7 @@ void MultipleChoiceProblemEditor::setAnswer() {
     std::set<int> answers;
 
     for (int i = 0; i < options.count(); i++) {
-        if (options[i]->isChecked()) {
+        if (options[i]->isCheckBoxChecked()) {
             answers.insert(i);
         }
     }

@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file SingleChoiceProblemEditor.cpp
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
@@ -11,13 +11,13 @@
 SingleChoiceProblemEditor::SingleChoiceProblemEditor(QWidget *parent)
     : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
 
-    layout->addLayout(optionLayout, 1);
+    layout->addLayout(optionLayout);
 
     auto addButton = new QPushButton("添加选项");
     buttonLayout->addWidget(addButton, 0);
     connect(addButton, &QAbstractButton::clicked, this, &SingleChoiceProblemEditor::addOption);
 
-    layout->addLayout(buttonLayout, 0);
+    layout->addLayout(buttonLayout);
 }
 
 void SingleChoiceProblemEditor::setProblem(std::shared_ptr<SingleChoiceProblem> p) {

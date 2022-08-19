@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file RemovableLabel.cpp
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/19
  */
@@ -10,19 +10,22 @@
 
 RemovableLabel::RemovableLabel(int index, QString content)
     : QHBoxLayout(), index(index), label(new QLabel(content)), removeButton(new QPushButton("删除")),
-      radioButton(new QRadioButton) {
+      radioButton(new QRadioButton), checkBox(new QCheckBox) {
 
     setAlignment(Qt::AlignLeft);
-    label->setFixedHeight(16);
+//    label->setFixedHeight(16);
 
     addWidget(radioButton, 0);
+    addWidget(checkBox, 0);
     addWidget(label, 0);
     addWidget(removeButton, 0);
 
     radioButton->setVisible(false);
+    checkBox->setVisible(false);
     removeButton->setVisible(false);
 
     connect(radioButton, &QRadioButton::clicked, this, &RemovableLabel::radioShim);
+    connect(checkBox, &QRadioButton::clicked, this, &RemovableLabel::checked);
     connect(removeButton, &QAbstractButton::clicked, this, &RemovableLabel::removeShim);
 }
 
@@ -53,7 +56,16 @@ void RemovableLabel::radioShim() {
     emit radio(index);
 }
 
-void RemovableLabel::setChecked(bool checked) {
+void RemovableLabel::setRadioChecked(bool checked) {
     radioButton->setChecked(checked);
+}
+
+bool RemovableLabel::isRadioChecked() {
+    return radioButton->isChecked();
+}
+
+void RemovableLabel::disable() {
+    radioButton->setDisabled(true);
+    checkBox->setDisabled(true);
 }
 

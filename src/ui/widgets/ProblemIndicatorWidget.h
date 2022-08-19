@@ -27,21 +27,23 @@ public:
         Default
     };
 
-    ProblemIndicatorWidget(std::shared_ptr<Paper>);
+    ProblemIndicatorWidget(std::shared_ptr<Paper>, bool isEditing = false);
     ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
 
     void setAnswerPaper(std::shared_ptr<AnswerPaper>);
 
     void touchPaper();
+    double evaluate();
 
 public slots:
     void problemClicked(QAbstractButton *button);
     void addProblem();
     void navigateProblem(int index);
     void removeProblem(int index);
+    void setAnswer(int index, json answer);
 
 signals:
-    void selectionChanged(std::shared_ptr<BaseProblem>, int index, NavigatorStatus status);
+    void selectionChanged(std::shared_ptr<BaseProblem>, int index, NavigatorStatus status, json answer = json::array());
     void paperChanged(std::shared_ptr<Paper>);
 
 protected:

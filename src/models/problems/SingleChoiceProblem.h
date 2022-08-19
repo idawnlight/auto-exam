@@ -25,6 +25,8 @@ public:
     std::vector<std::string> &getOptions();
     void setOptions(const std::vector<std::string> &options);
 
+    double evaluate(json ans) override;
+
     json toJson() override;
 };
 

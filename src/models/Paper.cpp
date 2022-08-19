@@ -13,19 +13,15 @@ void Paper::mock() {
         auto x = std::make_shared<SingleChoiceProblem>();
         x->setContent("这是题目。 单选" + std::to_string(i));
         problems.push_back(x);
-        auto y = std::make_shared<MultipleChoiceProblem>();
-        y->setContent("这是题目。 多选" + std::to_string(i));
-        problems.push_back(y);
-        auto z = std::make_shared<TrueOrFalseProblem>();
-        z->setContent("这是题目。 判断" + std::to_string(i));
-        problems.push_back(z);
-        auto a = std::make_shared<ShortAnswerProblem>();
-        a->setContent("这是题目。 简答" + std::to_string(i));
-        problems.push_back(a);
-//        problems.push_back(std::make_shared<SingleChoiceProblem>());
-//        problems.push_back(std::make_shared<MultipleChoiceProblem>());
-//        problems.push_back(std::make_shared<TrueOrFalseProblem>());
-//        problems.push_back(std::make_shared<ShortAnswerProblem>());
+//        auto y = std::make_shared<MultipleChoiceProblem>();
+//        y->setContent("这是题目。 多选" + std::to_string(i));
+//        problems.push_back(y);
+//        auto z = std::make_shared<TrueOrFalseProblem>();
+//        z->setContent("这是题目。 判断" + std::to_string(i));
+//        problems.push_back(z);
+//        auto a = std::make_shared<ShortAnswerProblem>();
+//        a->setContent("这是题目。 简答" + std::to_string(i));
+//        problems.push_back(a);
     }
 }
 

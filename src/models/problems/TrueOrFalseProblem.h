@@ -23,6 +23,8 @@ public:
     bool getAnswer() const;
     void setAnswer(bool answer);
 
+    double evaluate(json ans) override;
+
     json toJson() override;
 };
 

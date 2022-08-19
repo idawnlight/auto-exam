@@ -11,9 +11,34 @@
 
 #include <QtWidgets>
 
-class ExamWindow : public QMainWindow {
+#include "models/Paper.h"
+#include "../widgets/ProblemIndicatorWidget.h"
+#include "../widgets/infoLayout/ExamInfoLayout.h"
+#include "../widgets/ProblemViewer.h"
+#include "../widgets/ProblemLabel.h"
+
+class ExamWindow : public QWidget {
     Q_OBJECT
 
+public:
+    ExamWindow(QWidget *parent = nullptr);
+
+public slots:
+    void paperChangedShim();
+    void evaluate();
+    void show();
+
+signals:
+    void paperChanged(std::shared_ptr<Paper>);
+
+protected:
+    ExamInfoLayout * leftInfoLayout;
+    QPushButton * submitButton;
+    ProblemViewer * problemViewer;
+    ProblemLabel * problemLabel;
+    ProblemIndicatorWidget * problemIndicator;
+
+    std::shared_ptr<Paper> paper;
 };
 
 

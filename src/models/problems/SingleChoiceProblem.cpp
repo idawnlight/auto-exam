@@ -40,3 +40,11 @@ std::vector<std::string> &SingleChoiceProblem::getOptions() {
 void SingleChoiceProblem::setOptions(const std::vector<std::string> &options) {
     this->options = options;
 }
+
+double SingleChoiceProblem::evaluate(json ans) {
+    if (!ans.is_array() || ans.empty() || ans[0] != answer) {
+        return 0;
+    } else {
+        return score;
+    }
+}

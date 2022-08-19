@@ -40,3 +40,17 @@ const std::vector<std::string> &MultipleChoiceProblem::getOptions() const {
 void MultipleChoiceProblem::setOptions(const std::vector<std::string> &options) {
     MultipleChoiceProblem::options = options;
 }
+
+double MultipleChoiceProblem::evaluate(json ans) {
+    if (!ans.is_array() || ans.empty() || ans.size() > answer.size()) {
+        return 0;
+    } else if (answer.empty()) {
+        return score;
+    } else {
+        for (const auto& userAns : ans) {
+            if (!ans.contains(userAns)) return 0;
+        }
+
+        return (ans.size() == answer.size()) ? score : score / 2;
+    }
+}

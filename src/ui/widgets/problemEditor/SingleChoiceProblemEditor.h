@@ -1,15 +1,13 @@
 /**
  * @project Automatic Examination
  * @file SingleChoiceProblemEditor.h
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
 #ifndef AUTO_EXAM_SINGLECHOICEPROBLEMEDITOR_H
 #define AUTO_EXAM_SINGLECHOICEPROBLEMEDITOR_H
-
-#include <QtWidgets>
 
 #include "models/problems/SingleChoiceProblem.h"
 #include "BaseProblemEditor.h"

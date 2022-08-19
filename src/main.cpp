@@ -66,9 +66,11 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     EntryWidget entry;
-    EditWindow setup;
+    EditWindow editWindow;
+    ExamWindow examWindow;
 
-    QObject::connect(&entry, &EntryWidget::editPaper, &setup, &EditWindow::show);
+    QObject::connect(&entry, &EntryWidget::editPaper, &editWindow, &EditWindow::show);
+    QObject::connect(&entry, &EntryWidget::startExam, &examWindow, &ExamWindow::show);
 
     entry.show();
     return a.exec();

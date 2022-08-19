@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file MultipleChoiceProblemEditor.h
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */

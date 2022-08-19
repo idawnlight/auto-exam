@@ -53,3 +53,7 @@ const std::string &BaseProblem::getContent() const {
 void BaseProblem::setContent(const std::string &content) {
     BaseProblem::content = content;
 }
+
+double BaseProblem::evaluate(json ans) {
+    return score;
+}

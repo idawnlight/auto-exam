@@ -18,7 +18,7 @@ public:
     RemovableLineEdit(int index, QString content = "");
     ~RemovableLineEdit();
     QString getContent();
-    bool isChecked();
+    bool isCheckBoxChecked();
     void enableRadio(QWidget * parent, bool checked = false);
     void enableCheckbox(QWidget * parent, bool checked = false);
 

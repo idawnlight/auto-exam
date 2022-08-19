@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file TrueOrFalseProblemEditor.cpp
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
@@ -26,7 +26,9 @@ TrueOrFalseProblemEditor::TrueOrFalseProblemEditor(QWidget *parent)
 
     layout->addLayout(optionLayout);
 
-    layout->addLayout(buttonLayout, 0);
+    layout->addLayout(buttonLayout);
+
+    layout->addStretch();
 }
 
 void TrueOrFalseProblemEditor::setProblem(std::shared_ptr<TrueOrFalseProblem> p) {
@@ -47,8 +49,8 @@ void TrueOrFalseProblemEditor::refresh() {
 
     contentEdit->setPlainText(QString::fromStdString(this->problem->getContent()));
 
-    options[0]->setChecked(this->problem->getAnswer());
-    options[1]->setChecked(!this->problem->getAnswer());
+    options[0]->setRadioChecked(this->problem->getAnswer());
+    options[1]->setRadioChecked(!this->problem->getAnswer());
 }
 
 void TrueOrFalseProblemEditor::setAnswer(int index) {

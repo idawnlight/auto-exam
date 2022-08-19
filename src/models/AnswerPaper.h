@@ -20,6 +20,8 @@ public:
     void setPaper(const std::shared_ptr<Paper> &paper);
     const std::vector<json> &getAnswers() const;
     void setAnswers(const std::vector<json> &answers);
+    json getAnswer(int index);
+    void setAnswer(int index, json answer);
 
 protected:
     std::shared_ptr<Paper> paper;

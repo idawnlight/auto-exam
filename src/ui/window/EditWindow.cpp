@@ -45,7 +45,7 @@ EditWindow::EditWindow(QWidget *parent)
     // Right Part: Problem Indicator / Navigator
 //    paper = std::make_shared<Paper>();
 //    paper->mock();
-    problemIndicator = new ProblemIndicatorWidget(paper);
+    problemIndicator = new ProblemIndicatorWidget(paper, true);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);
     connect(problemIndicator, &ProblemIndicatorWidget::selectionChanged, problemEditor, &ProblemEditor::setProblem);
@@ -87,7 +87,7 @@ void EditWindow::exportPaper() {
 }
 
 void EditWindow::importPaper() {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("导入试卷"), "", "JSON Paper (*.json *.paper)");
+    QString fileName = QFileDialog::getOpenFileName(this, "导入试卷", "", "JSON Paper (*.json *.paper)");
 
     if (fileName != "") {
         std::ifstream f(fileName.toStdString());

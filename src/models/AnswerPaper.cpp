@@ -10,9 +10,12 @@
 
 AnswerPaper::AnswerPaper() {
     paper = std::make_shared<Paper>();
+    answers.reserve(1000);
 }
 
-AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper) {}
+AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper) {
+    answers.reserve(1000);
+}
 
 std::shared_ptr<Paper> AnswerPaper::getPaper() {
     return paper;
@@ -28,4 +31,12 @@ const std::vector<json> &AnswerPaper::getAnswers() const {
 
 void AnswerPaper::setAnswers(const std::vector<json> &answers) {
     AnswerPaper::answers = answers;
+}
+
+json AnswerPaper::getAnswer(int index) {
+    return answers[index];
+}
+
+void AnswerPaper::setAnswer(int index, json answer) {
+    answers[index] = answer;
 }

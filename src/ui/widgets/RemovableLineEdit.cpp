@@ -62,6 +62,6 @@ void RemovableLineEdit::radioShim() {
     emit radio(index);
 }
 
-bool RemovableLineEdit::isChecked() {
+bool RemovableLineEdit::isCheckBoxChecked() {
     return checkBox->isChecked();
 }

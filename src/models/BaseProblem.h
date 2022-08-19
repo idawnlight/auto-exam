@@ -38,6 +38,8 @@ public:
     const std::string &getContent() const;
     void setContent(const std::string &content);
 
+    virtual double evaluate(json ans);
+
     virtual int checkAnswer(json) const;
     virtual json toJson();
 };

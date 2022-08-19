@@ -34,3 +34,11 @@ bool TrueOrFalseProblem::getAnswer() const {
 void TrueOrFalseProblem::setAnswer(bool answer) {
     TrueOrFalseProblem::answer = answer;
 }
+
+double TrueOrFalseProblem::evaluate(json ans) {
+    if (!ans.is_array() || ans.empty() || ans[0] != answer) {
+        return 0;
+    } else {
+        return score;
+    }
+}

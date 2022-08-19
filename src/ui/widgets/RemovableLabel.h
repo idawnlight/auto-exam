@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file RemovableLabel.h
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/19
  */
@@ -19,11 +19,14 @@ public:
     ~RemovableLabel();
     void enableRemove();
     void enableRadio(QWidget * parent, bool checked = false);
-    void setChecked(bool checked);
+    void setRadioChecked(bool checked);
+    bool isRadioChecked();
+    void disable();
 
 signals:
     void remove(int index);
     void radio(int index);
+    void checked();
 
 protected slots:
     void removeShim();
@@ -33,6 +36,7 @@ protected:
     QLabel * label;
     QPushButton * removeButton;
     QRadioButton * radioButton;
+    QCheckBox * checkBox;
     int index;
 };
 

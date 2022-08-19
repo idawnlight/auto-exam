@@ -24,6 +24,8 @@ public:
     const std::set<std::string> &getKeywords() const;
     void setKeywords(const std::set<std::string> &keywords);
 
+    double evaluate(json ans) override;
+
     json toJson() override;
 };
 

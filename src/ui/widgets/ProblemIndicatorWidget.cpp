@@ -8,8 +8,8 @@
 
 #include "ProblemIndicatorWidget.h"
 
-ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p)
-    : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), true) {}
+ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p, bool isEditing)
+    : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), isEditing) {}
 
 ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, bool isEditing)
     : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing), buttonGroup(new QButtonGroup(this)) {
@@ -74,6 +74,8 @@ void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p) {
         layout->addWidget(btn, i / 4, i % 4);
         buttons.push_back(btn);
     }
+
+    emit paperChanged(this->answerPaper->getPaper());
 }
 
 void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
@@ -89,7 +91,8 @@ void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
         navigatorStatus = NavigatorStatus::Middle;
     }
 //    qDebug() << button->text();
-    emit selectionChanged(answerPaper->getPaper()->getProblem(index), index, navigatorStatus);
+//    qDebug() << QString::fromStdString(answerPaper->getAnswer(index).dump());
+    emit selectionChanged(answerPaper->getPaper()->getProblem(index), index, navigatorStatus, answerPaper->getAnswer(index));
 }
 
 void ProblemIndicatorWidget::addProblem() {
@@ -198,4 +201,26 @@ void ProblemIndicatorWidget::navigateProblem(int index) {
     }
 
     buttons[index]->click();
+}
+
+void ProblemIndicatorWidget::setAnswer(int index, json answer) {
+    answerPaper->setAnswer(index, answer);
+}
+
+double ProblemIndicatorWidget::evaluate() {
+    double score = 0;
+
+    for (int i = 0; i < answerPaper->getPaper()->problemCount(); i++) {
+        double tmpScore = answerPaper->getPaper()->getProblems()[i]->evaluate(answerPaper->getAnswer(i));
+        if (tmpScore == 0) {
+            buttons[i]->setStyleSheet(buttonStyleDefault + buttonStyleWrong);
+        } else if (tmpScore != answerPaper->getPaper()->getProblems()[i]->getScore()) {
+            buttons[i]->setStyleSheet(buttonStyleDefault + buttonStylePartRight);
+        } else {
+            buttons[i]->setStyleSheet(buttonStyleDefault + buttonStyleRight);
+        }
+        score += tmpScore;
+    }
+
+    return score;
 }

@@ -1,7 +1,7 @@
 /**
  * @project Automatic Examination
  * @file ShortAnswerProblemEditor.cpp
- * @location src/ui/widgets/problemEditor
+ * @location src/ui/widgets/problemViewer
  * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
@@ -14,10 +14,10 @@ ShortAnswerProblemEditor::ShortAnswerProblemEditor(QWidget *parent)
     layout->addLayout(keywordsLayout);
 
     auto addButton = new QPushButton("添加关键词");
-    buttonLayout->addWidget(addButton, 0);
+    buttonLayout->addWidget(addButton);
     connect(addButton, &QAbstractButton::clicked, this, &ShortAnswerProblemEditor::addKeyword);
 
-    layout->addLayout(buttonLayout, 0);
+    layout->addLayout(buttonLayout);
 }
 
 void ShortAnswerProblemEditor::setProblem(std::shared_ptr<ShortAnswerProblem> p) {

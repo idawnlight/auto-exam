@@ -30,3 +30,22 @@ const std::set<std::string> &ShortAnswerProblem::getKeywords() const {
 void ShortAnswerProblem::setKeywords(const std::set<std::string> &keywords) {
     ShortAnswerProblem::keywords = keywords;
 }
+
+double ShortAnswerProblem::evaluate(json ans) {
+    if (!ans.is_array() || ans.empty()) {
+        return 0;
+    } else if (keywords.empty()) {
+        return score;
+    } else {
+        std::string sAns = ans[0];
+        int part = 0;
+
+        for (auto keyword : keywords) {
+            if (sAns.find(keyword) != std::string::npos) {
+                part++;
+            }
+        }
+
+        return score * (part / keywords.size());
+    }
+}

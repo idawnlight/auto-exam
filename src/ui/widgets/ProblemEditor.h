@@ -13,6 +13,9 @@
 
 #include "models/BaseProblem.h"
 #include "problemEditor/SingleChoiceProblemEditor.h"
+#include "problemEditor/MultipleChoiceProblemEditor.h"
+#include "problemEditor/TrueOrFalseProblemEditor.h"
+#include "problemEditor/ShortAnswerProblemEditor.h"
 #include "NavigatorWidget.h"
 
 class ProblemEditor : public QVBoxLayout {
@@ -24,12 +27,16 @@ public:
 
 public slots:
     void setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status);
+    void navigateProblemPrevious();
+    void navigateProblemNext();
 
 protected slots:
     void removeProblemClicked();
 
 signals:
     void removeProblem(int index);
+    void navigateProblem(int index);
+    void problemChanged(std::shared_ptr<BaseProblem> problem);
 
 protected:
     int currentIndex;
@@ -37,7 +44,12 @@ protected:
 
     QStackedWidget* stackedWidget;
     QWidget* emptyWidget;
+
     SingleChoiceProblemEditor* singleChoiceProblemEditor;
+    MultipleChoiceProblemEditor* multipleChoiceProblemEditor;
+    TrueOrFalseProblemEditor* trueOrFalseProblemEditor;
+    ShortAnswerProblemEditor* shortAnswerProblemEditor;
+
     NavigatorWidget* navigatorWidget;
     QPushButton* removeButton;
 };

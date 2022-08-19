@@ -17,10 +17,10 @@ class ProblemLabel : public QLabel {
     Q_OBJECT
 
 public:
-    ProblemLabel();
+    ProblemLabel(QWidget *parent = nullptr);
 
 public slots:
-    void setProblem(std::shared_ptr<BaseProblem>, int index);
+    void setProblem(std::shared_ptr<BaseProblem>);
 
 };
 

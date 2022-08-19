@@ -9,12 +9,31 @@
 #include "ProblemEditor.h"
 
 ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> problem)
-    : QVBoxLayout(parent), stackedWidget(new QStackedWidget()), problem(problem),
-      emptyWidget(new QWidget), singleChoiceProblemEditor(new SingleChoiceProblemEditor),
+    : QVBoxLayout(parent),
+      stackedWidget(new QStackedWidget()),
+      problem(problem),
+      emptyWidget(new QWidget),
+      singleChoiceProblemEditor(new SingleChoiceProblemEditor),
+      multipleChoiceProblemEditor(new MultipleChoiceProblemEditor),
+      trueOrFalseProblemEditor(new TrueOrFalseProblemEditor),
+      shortAnswerProblemEditor(new ShortAnswerProblemEditor),
       navigatorWidget(new NavigatorWidget) {
     addWidget(stackedWidget);
 
     stackedWidget->addWidget(singleChoiceProblemEditor);
+    stackedWidget->addWidget(multipleChoiceProblemEditor);
+    stackedWidget->addWidget(trueOrFalseProblemEditor);
+    stackedWidget->addWidget(shortAnswerProblemEditor);
+
+    connect(singleChoiceProblemEditor, &SingleChoiceProblemEditor::problemChanged, this,
+            &ProblemEditor::problemChanged);
+    connect(multipleChoiceProblemEditor, &MultipleChoiceProblemEditor::problemChanged, this,
+            &ProblemEditor::problemChanged);
+    connect(trueOrFalseProblemEditor, &TrueOrFalseProblemEditor::problemChanged, this,
+            &ProblemEditor::problemChanged);
+    connect(shortAnswerProblemEditor, &ShortAnswerProblemEditor::problemChanged, this,
+            &ProblemEditor::problemChanged);
+
     stackedWidget->addWidget(emptyWidget);
 
     auto bottomLayout = new QHBoxLayout();
@@ -27,13 +46,15 @@ ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> probl
     bottomLayout->addStretch();
 
     bottomLayout->addWidget(navigatorWidget);
+    connect(navigatorWidget, &NavigatorWidget::previous, this, &ProblemEditor::navigateProblemPrevious);
+    connect(navigatorWidget, &NavigatorWidget::next, this, &ProblemEditor::navigateProblemNext);
 
     addLayout(bottomLayout, 0);
 
     if (problem != nullptr) {
         refresh();
     } else {
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentWidget(emptyWidget);
     }
 }
 
@@ -54,31 +75,30 @@ void ProblemEditor::refresh() {
             singleChoiceProblemEditor->setProblem(tmp);
         }
             break;
-//        case MultipleChoice:
-//        {
-//            auto tmp = std::static_pointer_cast<MultipleChoiceProblem>(i);
-//            std::cout << "MultipleChoice" << std::endl;
-//        }
-//            break;
-//        case TrueOrFalse:
-//        {
-//            auto tmp = std::static_pointer_cast<TrueOrFalseProblem>(i);
-//            std::cout << "TrueOrFalse" << std::endl;
-//        }
-//            break;
-//        case ShortAnswer:
-//        {
-//            auto tmp = std::static_pointer_cast<ShortAnswerProblem>(i);
-//            std::cout << "ShortAnswer" << std::endl;
-//        }
-//            break;
+        case MultipleChoice:
+        {
+            auto tmp = std::static_pointer_cast<MultipleChoiceProblem>(this->problem);
+            multipleChoiceProblemEditor->setProblem(tmp);
+        }
+            break;
+        case TrueOrFalse:
+        {
+            auto tmp = std::static_pointer_cast<TrueOrFalseProblem>(this->problem);
+            trueOrFalseProblemEditor->setProblem(tmp);
+        }
+            break;
+        case ShortAnswer:
+        {
+            auto tmp = std::static_pointer_cast<ShortAnswerProblem>(this->problem);
+            shortAnswerProblemEditor->setProblem(tmp);
+        }
+            break;
         default:
             qDebug() << "Default";
             break;
     }
 
     stackedWidget->setCurrentIndex(problem->getProblemType());
-//    stackedWidget->setCurrentIndex(0);
 }
 
 void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status) {
@@ -86,6 +106,8 @@ void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, 
     this->problem = problem;
     navigatorWidget->setStatus(status);
     refresh();
+
+    emit problemChanged(problem);
 }
 
 void ProblemEditor::removeProblemClicked() {
@@ -94,4 +116,12 @@ void ProblemEditor::removeProblemClicked() {
     if (ret == QMessageBox::Yes) {
         emit removeProblem(currentIndex);
     }
+}
+
+void ProblemEditor::navigateProblemPrevious() {
+    emit navigateProblem(currentIndex - 1);
+}
+
+void ProblemEditor::navigateProblemNext() {
+    emit navigateProblem(currentIndex + 1);
 }

@@ -15,6 +15,7 @@ SingleChoiceProblem::SingleChoiceProblem() {
 
 SingleChoiceProblem::SingleChoiceProblem(json j) : BaseProblem(j) {
     j.at("answer").get_to(answer);
+    j.at("options").get_to(options);
 }
 
 json SingleChoiceProblem::toJson() {
@@ -29,7 +30,7 @@ int SingleChoiceProblem::getAnswer() const {
 }
 
 void SingleChoiceProblem::setAnswer(int answer) {
-    SingleChoiceProblem::answer = answer;
+    this->answer = answer;
 }
 
 std::vector<std::string> &SingleChoiceProblem::getOptions() {
@@ -37,5 +38,5 @@ std::vector<std::string> &SingleChoiceProblem::getOptions() {
 }
 
 void SingleChoiceProblem::setOptions(const std::vector<std::string> &options) {
-    SingleChoiceProblem::options = options;
+    this->options = options;
 }

@@ -26,3 +26,11 @@ json TrueOrFalseProblem::toJson() {
     j["answer"] = answer;
     return j;
 }
+
+bool TrueOrFalseProblem::getAnswer() const {
+    return answer;
+}
+
+void TrueOrFalseProblem::setAnswer(bool answer) {
+    TrueOrFalseProblem::answer = answer;
+}

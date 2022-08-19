@@ -20,18 +20,25 @@
 class EditWindow : public QWidget {
     Q_OBJECT
 
-protected:
-    EditInfoLayout * leftInfoLayout;
-    ProblemEditor * problemEditor;
-    ProblemLabel * problemLabel;
+public slots:
+    void paperChangedShim();
+    void exportPaper();
+    void importPaper();
 
-    std::shared_ptr<Paper> paper;
+signals:
+    void paperChanged(std::shared_ptr<Paper>);
 
 public:
     EditWindow(QWidget *parent = nullptr);
 
-public slots:
-    void show();
+protected:
+    EditInfoLayout * leftInfoLayout;
+    ProblemEditor * problemEditor;
+    ProblemLabel * problemLabel;
+    ProblemIndicatorWidget * problemIndicator;
+
+    std::shared_ptr<Paper> paper;
+
 };
 
 

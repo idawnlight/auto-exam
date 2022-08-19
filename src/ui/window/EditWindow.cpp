@@ -6,11 +6,12 @@
  * @date 2022/8/12
  */
 
+#include <fstream>
 #include "EditWindow.h"
 
 EditWindow::EditWindow(QWidget *parent)
     : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()),
-      problemLabel(new ProblemLabel()) {
+      problemLabel(new ProblemLabel()), paper(std::make_shared<Paper>()) {
     auto mainLayout = new QHBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("制卷 - 自动考试系统");
@@ -31,23 +32,29 @@ EditWindow::EditWindow(QWidget *parent)
     leftBottomButtonGroup->addWidget(importButton);
     leftBottomButtonGroup->addWidget(exportButton);
 
+    connect(importButton, &QAbstractButton::clicked, this, &EditWindow::importPaper);
+    connect(exportButton, &QAbstractButton::clicked, this, &EditWindow::exportPaper);
+
     // Center Part: Main Editor
     auto centerLayout = new QVBoxLayout();
     centerLayout->addWidget(problemLabel);
     centerLayout->addLayout(problemEditor);
+    connect(problemEditor, &ProblemEditor::problemChanged, problemLabel, &ProblemLabel::setProblem);
+    connect(problemEditor, &ProblemEditor::problemChanged, this, &EditWindow::paperChangedShim);
 
     // Right Part: Problem Indicator / Navigator
-    paper = std::make_shared<Paper>();
-    paper->mock();
-    auto problemIndicator = new ProblemIndicatorWidget(paper);
+//    paper = std::make_shared<Paper>();
+//    paper->mock();
+    problemIndicator = new ProblemIndicatorWidget(paper);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);
     connect(problemIndicator, &ProblemIndicatorWidget::selectionChanged, problemEditor, &ProblemEditor::setProblem);
-    connect(problemIndicator, &ProblemIndicatorWidget::selectionChanged, problemLabel, &ProblemLabel::setProblem);
-    connect(problemIndicator, &ProblemIndicatorWidget::paperChanged, leftInfoLayout, &EditInfoLayout::updateEditInfo);
+    connect(problemIndicator, &ProblemIndicatorWidget::paperChanged, this, &EditWindow::paperChanged);
+    connect(this, &EditWindow::paperChanged, leftInfoLayout, &EditInfoLayout::updateEditInfo);
     problemIndicator->touchPaper();
 
     connect(problemEditor, &ProblemEditor::removeProblem, problemIndicator, &ProblemIndicatorWidget::removeProblem);
+    connect(problemEditor, &ProblemEditor::navigateProblem, problemIndicator, &ProblemIndicatorWidget::navigateProblem);
 
     // Split layouts
     mainLayout->addLayout(leftLayout, 1);
@@ -62,6 +69,35 @@ EditWindow::EditWindow(QWidget *parent)
 
 }
 
-void EditWindow::show() {
-    QWidget::show();
+void EditWindow::paperChangedShim() {
+    emit paperChanged(paper);
+}
+
+void EditWindow::exportPaper() {
+    QString fileName = QFileDialog::getSaveFileName(this, "保存试卷", "paper.json", "JSON Paper (*.json *.paper)");
+
+    if (fileName != "") {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+            return;
+
+        QTextStream out(&file);
+        out << QString::fromStdString(this->paper->toJson().dump(4));
+    }
+}
+
+void EditWindow::importPaper() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("导入试卷"), "", "JSON Paper (*.json *.paper)");
+
+    if (fileName != "") {
+        std::ifstream f(fileName.toStdString());
+        json data = json::parse(f);
+
+        try {
+            paper = std::make_shared<Paper>(Paper::fromJson(data));
+            problemIndicator->setAnswerPaper(std::make_shared<AnswerPaper>(paper));
+        } catch (std::exception e) {
+            QMessageBox::critical(this, "导入失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
+        }
+    }
 }

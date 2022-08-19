@@ -10,15 +10,23 @@
 
 ShortAnswerProblem::ShortAnswerProblem() {
     problemType = ShortAnswer;
-    answer = std::vector<std::string>();
+    keywords = std::set<std::string>();
 }
 
 json ShortAnswerProblem::toJson() {
     auto j = BaseProblem::toJson();
-    j["answer"] = answer;
+    j["keywords"] = keywords;
     return j;
 }
 
 ShortAnswerProblem::ShortAnswerProblem(json j) : BaseProblem(j) {
-    j.at("answer").get_to(answer);
+    j.at("keywords").get_to(keywords);
+}
+
+const std::set<std::string> &ShortAnswerProblem::getKeywords() const {
+    return keywords;
+}
+
+void ShortAnswerProblem::setKeywords(const std::set<std::string> &keywords) {
+    ShortAnswerProblem::keywords = keywords;
 }

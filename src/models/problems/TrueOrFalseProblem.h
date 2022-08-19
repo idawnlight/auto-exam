@@ -20,6 +20,9 @@ public:
     TrueOrFalseProblem(bool answer);
     TrueOrFalseProblem(json);
 
+    bool getAnswer() const;
+    void setAnswer(bool answer);
+
     json toJson() override;
 };
 

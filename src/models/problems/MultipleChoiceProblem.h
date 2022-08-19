@@ -9,15 +9,23 @@
 #ifndef AUTO_EXAM_MULTIPLECHOICEPROBLEM_H
 #define AUTO_EXAM_MULTIPLECHOICEPROBLEM_H
 
+#include <set>
+
 #include "../BaseProblem.h"
 
 class MultipleChoiceProblem : public BaseProblem {
 protected:
-    std::vector<int> answer;
+    std::set<int> answer;
+    std::vector<std::string> options;
 
 public:
     MultipleChoiceProblem();
     MultipleChoiceProblem(json);
+
+    const std::set<int> &getAnswer() const;
+    void setAnswer(const std::set<int> &answer);
+    const std::vector<std::string> &getOptions() const;
+    void setOptions(const std::vector<std::string> &options);
 
     json toJson() override;
 };

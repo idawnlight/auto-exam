@@ -8,76 +8,20 @@
 
 #include "Paper.h"
 
-//namespace nlohmann
-//{
-//    template<>
-//    struct adl_serializer<std::shared_ptr<BaseProblem>>
-//    {
-//        static void to_json(json& j, const std::shared_ptr<BaseProblem>& opt)
-//        {
-//            if (opt)
-//            {
-//                switch (opt->getProblemType())
-//                {
-//                    case SingleChoice:
-//                        j = *(std::static_pointer_cast<SingleChoiceProblem>(opt));
-//                        break;
-//                    case MultipleChoice:
-//                        j = *(std::static_pointer_cast<MultipleChoiceProblem>(opt));
-//                        break;
-//                    case TrueOrFalse:
-//                        j = *(std::static_pointer_cast<TrueOrFalseProblem>(opt));
-//                        break;
-//                    case ShortAnswer:
-//                        j = *(std::static_pointer_cast<ShortAnswerProblem>(opt));
-//                        break;
-//                    default:
-//                        j = *opt;
-//                        break;
-//                }
-//            }
-//            else
-//            {
-//                j = nullptr;
-//            }
-//        }
-//
-//        static void from_json(const json& j, std::shared_ptr<BaseProblem>& opt)
-//        {
-//            if (j.is_null())
-//            {
-//                opt = nullptr;
-//            }
-//            else
-//            {
-//                switch (j.at("problemType").get<ProblemType>())
-//                {
-//                    case SingleChoice:
-//                        opt = std::make_shared<SingleChoiceProblem>(j.get<SingleChoiceProblem>());
-//                        break;
-//                    case MultipleChoice:
-//                        opt = std::make_shared<MultipleChoiceProblem>(j.get<MultipleChoiceProblem>());
-//                        break;
-//                    case TrueOrFalse:
-//                        opt = std::make_shared<TrueOrFalseProblem>(j.get<TrueOrFalseProblem>());
-//                        break;
-//                    case ShortAnswer:
-//                        opt = std::make_shared<ShortAnswerProblem>(j.get<ShortAnswerProblem>());
-//                        break;
-//                    default:
-//                        opt = std::make_shared<BaseProblem>(j.get<BaseProblem>());
-//                        break;
-//                }
-//            }
-//        }
-//    };
-//}
-
 void Paper::mock() {
     for (int i = 0; i < 2; i++) {
         auto x = std::make_shared<SingleChoiceProblem>();
-        x->setContent("这是题目。" + std::to_string(i));
+        x->setContent("这是题目。 单选" + std::to_string(i));
         problems.push_back(x);
+        auto y = std::make_shared<MultipleChoiceProblem>();
+        y->setContent("这是题目。 多选" + std::to_string(i));
+        problems.push_back(y);
+        auto z = std::make_shared<TrueOrFalseProblem>();
+        z->setContent("这是题目。 判断" + std::to_string(i));
+        problems.push_back(z);
+        auto a = std::make_shared<ShortAnswerProblem>();
+        a->setContent("这是题目。 简答" + std::to_string(i));
+        problems.push_back(a);
 //        problems.push_back(std::make_shared<SingleChoiceProblem>());
 //        problems.push_back(std::make_shared<MultipleChoiceProblem>());
 //        problems.push_back(std::make_shared<TrueOrFalseProblem>());

@@ -9,8 +9,34 @@
 #ifndef AUTO_EXAM_SHORTANSWERPROBLEMEDITOR_H
 #define AUTO_EXAM_SHORTANSWERPROBLEMEDITOR_H
 
+#include "models/problems/ShortAnswerProblem.h"
+#include "BaseProblemEditor.h"
+#include "../RemovableLineEdit.h"
 
-class ShortAnswerProblemEditor {
+class ShortAnswerProblemEditor : public BaseProblemEditor {
+    Q_OBJECT
+
+public:
+    explicit ShortAnswerProblemEditor(QWidget *parent = nullptr);
+
+    void setProblem(std::shared_ptr<ShortAnswerProblem> p);
+    std::shared_ptr<ShortAnswerProblem> getProblem();
+
+    void refresh() override;
+
+public slots:
+    void addKeyword();
+    void removeKeyword(int index);
+    void setScore() override;
+    void saveProblem() override;
+
+signals:
+    void problemChanged(std::shared_ptr<ShortAnswerProblem> problem);
+
+protected:
+    std::shared_ptr<ShortAnswerProblem> problem;
+    QVBoxLayout * keywordsLayout;
+    QList<RemovableLineEdit *> keywords;
 
 };
 

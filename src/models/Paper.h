@@ -19,9 +19,6 @@
 #include <vector>
 
 class Paper {
-protected:
-    std::vector<std::shared_ptr<BaseProblem>> problems;
-
 public:
     std::vector<std::shared_ptr<BaseProblem>> &getProblems();
 
@@ -33,6 +30,10 @@ public:
     void mock();
     json toJson() const;
     static Paper fromJson(const json);
+
+protected:
+    std::vector<std::shared_ptr<BaseProblem>> problems{};
+
 };
 
 std::shared_ptr<BaseProblem> problemFromJson(const json j);

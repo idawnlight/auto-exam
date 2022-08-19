@@ -20,6 +20,26 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
     setWidget(client);
 
     buttons.reserve(300);
+    connect(buttonGroup, &QButtonGroup::buttonClicked, this, &ProblemIndicatorWidget::problemClicked);
+
+    layout->setSpacing(1);
+
+    if (p != nullptr) {
+        setAnswerPaper(p);
+    }
+}
+
+void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p) {
+    for (auto i : buttons) {
+        layout->removeWidget(i);
+        if (i->text() != "+") {
+            buttonGroup->removeButton(i);
+        }
+        delete i;
+    }
+
+    buttons.clear();
+    answerPaper = p;
 
     auto size = answerPaper->getPaper()->getProblems().size();
     for (int i = 0; i <= size; i++) {
@@ -53,17 +73,7 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
         btn->setFixedSize(btnSize);
         layout->addWidget(btn, i / 4, i % 4);
         buttons.push_back(btn);
-//        if (i % 3 == 0) {
-//            buttons[i]->setStyleSheet(buttonStyleWrong);
-//        } else {
-//            buttons[i]->setStyleSheet(buttonStylePartRight);
-//        }
-//        buttons[i]->setStyleSheet("");
     }
-
-    connect(buttonGroup, &QButtonGroup::buttonClicked, this, &ProblemIndicatorWidget::problemClicked);
-
-    layout->setSpacing(1);
 }
 
 void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
@@ -78,7 +88,7 @@ void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
     } else {
         navigatorStatus = NavigatorStatus::Middle;
     }
-    qDebug() << button->text();
+//    qDebug() << button->text();
     emit selectionChanged(answerPaper->getPaper()->getProblem(index), index, navigatorStatus);
 }
 
@@ -113,13 +123,22 @@ void ProblemIndicatorWidget::addProblem() {
             }
                 break;
             case 1:
-//                emit addMultipleChoiceProblem();
+            {
+                auto problem = std::make_shared<MultipleChoiceProblem>();
+                this->answerPaper->getPaper()->getProblems().push_back(problem);
+            }
                 break;
             case 2:
-//                emit addJudgeProblem();
+            {
+                auto problem = std::make_shared<TrueOrFalseProblem>();
+                this->answerPaper->getPaper()->getProblems().push_back(problem);
+            }
                 break;
             case 3:
-//                emit addShortAnswerProblem();
+            {
+                auto problem = std::make_shared<ShortAnswerProblem>();
+                this->answerPaper->getPaper()->getProblems().push_back(problem);
+            }
                 break;
         }
 
@@ -130,7 +149,7 @@ void ProblemIndicatorWidget::addProblem() {
         }
         emit paperChanged(answerPaper->getPaper());
 
-        qDebug() << item;
+//        qDebug() << item;
     }
 }
 
@@ -171,4 +190,12 @@ void ProblemIndicatorWidget::removeProblem(int index) {
 
     emit selectionChanged(nullptr, -1, NavigatorStatus::None);
     emit paperChanged(answerPaper->getPaper());
+}
+
+void ProblemIndicatorWidget::navigateProblem(int index) {
+    if (index < 0 || index >= answerPaper->getPaper()->problemCount()) {
+        return;
+    }
+
+    buttons[index]->click();
 }

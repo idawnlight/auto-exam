@@ -9,8 +9,33 @@
 #ifndef AUTO_EXAM_TRUEORFALSEPROBLEMEDITOR_H
 #define AUTO_EXAM_TRUEORFALSEPROBLEMEDITOR_H
 
+#include "models/problems/TrueOrFalseProblem.h"
+#include "BaseProblemEditor.h"
+#include "../RemovableLabel.h"
 
-class TrueOrFalseProblemEditor {
+class TrueOrFalseProblemEditor : public BaseProblemEditor {
+    Q_OBJECT
+
+public:
+    explicit TrueOrFalseProblemEditor(QWidget *parent = nullptr);
+
+    void setProblem(std::shared_ptr<TrueOrFalseProblem> p);
+    std::shared_ptr<TrueOrFalseProblem> getProblem();
+
+    void refresh() override;
+
+public slots:
+    void setAnswer(int index);
+    void setScore() override;
+    void saveProblem() override;
+
+signals:
+    void problemChanged(std::shared_ptr<TrueOrFalseProblem> problem);
+
+protected:
+    std::shared_ptr<TrueOrFalseProblem> problem;
+    QVBoxLayout * optionLayout;
+    QList<RemovableLabel *> options;
 
 };
 

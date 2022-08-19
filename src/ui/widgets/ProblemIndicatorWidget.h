@@ -30,11 +30,14 @@ public:
     ProblemIndicatorWidget(std::shared_ptr<Paper>);
     ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
 
+    void setAnswerPaper(std::shared_ptr<AnswerPaper>);
+
     void touchPaper();
 
 public slots:
     void problemClicked(QAbstractButton *button);
     void addProblem();
+    void navigateProblem(int index);
     void removeProblem(int index);
 
 signals:

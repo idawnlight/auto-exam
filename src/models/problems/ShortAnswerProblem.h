@@ -9,15 +9,20 @@
 #ifndef AUTO_EXAM_SHORTANSWERPROBLEM_H
 #define AUTO_EXAM_SHORTANSWERPROBLEM_H
 
+#include <set>
+
 #include "../BaseProblem.h"
 
 class ShortAnswerProblem : public BaseProblem {
 protected:
-    std::vector<std::string> answer;
+    std::set<std::string> keywords;
 
 public:
     ShortAnswerProblem();
     ShortAnswerProblem(json);
+
+    const std::set<std::string> &getKeywords() const;
+    void setKeywords(const std::set<std::string> &keywords);
 
     json toJson() override;
 };

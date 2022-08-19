@@ -29,7 +29,7 @@ signals:
 
 protected:
     QVBoxLayout * layout;
-    json answer;
+    json userAnswer;
     QLabel * problemContent;
     QLabel * problemAnswer;
     bool noSaving = false;

@@ -26,6 +26,7 @@ public:
     void setAnswer(const std::set<int> &answer);
     const std::vector<std::string> &getOptions() const;
     void setOptions(const std::vector<std::string> &options);
+    std::string getAnswerString();
 
     double evaluate(json ans) override;
 

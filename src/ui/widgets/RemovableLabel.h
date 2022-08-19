@@ -21,6 +21,8 @@ public:
     void enableRadio(QWidget * parent, bool checked = false);
     void setRadioChecked(bool checked);
     bool isRadioChecked();
+    void enableCheckbox(QWidget * parent, bool checked = false);
+    bool isCheckBoxChecked();
     void disable();
 
 signals:

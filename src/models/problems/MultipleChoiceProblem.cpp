@@ -10,7 +10,7 @@
 
 MultipleChoiceProblem::MultipleChoiceProblem() {
     problemType = MultipleChoice;
-//    answer.push_back(0);
+//    userAnswer.push_back(0);
 }
 
 MultipleChoiceProblem::MultipleChoiceProblem(json j) : BaseProblem(j) {
@@ -48,9 +48,29 @@ double MultipleChoiceProblem::evaluate(json ans) {
         return score;
     } else {
         for (const auto& userAns : ans) {
-            if (!ans.contains(userAns)) return 0;
+            if (answer.find(userAns) == answer.end()) return 0;
         }
 
-        return (ans.size() == answer.size()) ? score : score / 2;
+        return (ans.size() == answer.size()) ? score : (score / 2);
     }
+}
+
+std::string MultipleChoiceProblem::getAnswerString() {
+    if (answer.empty()) {
+        return "";
+    }
+
+    std::string answerString = "";
+    bool first = true;
+
+    for (auto i : answer) {
+        if (!first) {
+            answerString += "，";
+        } else {
+            first = false;
+        }
+        answerString += i + 'A';
+    }
+
+    return answerString;
 }

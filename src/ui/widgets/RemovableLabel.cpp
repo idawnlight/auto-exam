@@ -33,6 +33,7 @@ RemovableLabel::~RemovableLabel() {
     delete label;
     delete removeButton;
     delete radioButton;
+    delete checkBox;
 }
 
 void RemovableLabel::enableRemove() {
@@ -67,5 +68,18 @@ bool RemovableLabel::isRadioChecked() {
 void RemovableLabel::disable() {
     radioButton->setDisabled(true);
     checkBox->setDisabled(true);
+}
+
+void RemovableLabel::enableCheckbox(QWidget *parent, bool checked) {
+    checkBox->setParent(parent);
+    checkBox->setVisible(true);
+
+    if (checked) {
+        checkBox->setChecked(true);
+    }
+}
+
+bool RemovableLabel::isCheckBoxChecked() {
+    return checkBox->isChecked();
 }
 

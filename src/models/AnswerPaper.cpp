@@ -6,6 +6,7 @@
  * @date 2022/8/12
  */
 
+#include <QDebug>
 #include "AnswerPaper.h"
 
 AnswerPaper::AnswerPaper() {
@@ -34,9 +35,15 @@ void AnswerPaper::setAnswers(const std::vector<json> &answers) {
 }
 
 json AnswerPaper::getAnswer(int index) {
-    return answers[index];
+    try {
+        return answers[index];
+    } catch (std::exception &e) {
+        return json::array();
+    }
 }
 
 void AnswerPaper::setAnswer(int index, json answer) {
+//    qDebug() << QString::fromStdString(answer.dump());
     answers[index] = answer;
+    qDebug() << QString::fromStdString(answers[index].dump());
 }

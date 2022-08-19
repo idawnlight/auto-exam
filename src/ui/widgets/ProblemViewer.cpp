@@ -14,25 +14,25 @@ ProblemViewer::ProblemViewer(QWidget *parent, std::shared_ptr<BaseProblem> probl
       problem(problem),
       emptyWidget(new QWidget),
       singleChoiceProblemViewer(new SingleChoiceProblemViewer),
-//          multipleChoiceProblemEditor(new MultipleChoiceProblemEditor),
-//          trueOrFalseProblemEditor(new TrueOrFalseProblemEditor),
-//          shortAnswerProblemEditor(new ShortAnswerProblemEditor),
+      multipleChoiceProblemViewer(new MultipleChoiceProblemViewer),
+      trueOrFalseProblemViewer(new TrueOrFalseProblemViewer),
+      shortAnswerProblemViewer(new ShortAnswerProblemViewer),
       navigatorWidget(new NavigatorWidget) {
     addWidget(stackedWidget);
 
     stackedWidget->addWidget(singleChoiceProblemViewer);
-//    stackedWidget->addWidget(multipleChoiceProblemEditor);
-//    stackedWidget->addWidget(trueOrFalseProblemEditor);
-//    stackedWidget->addWidget(shortAnswerProblemEditor);
+    stackedWidget->addWidget(multipleChoiceProblemViewer);
+    stackedWidget->addWidget(trueOrFalseProblemViewer);
+    stackedWidget->addWidget(shortAnswerProblemViewer);
 
     connect(singleChoiceProblemViewer, &SingleChoiceProblemViewer::answerChanged, this,
             &ProblemViewer::answerChangedShim);
-//    connect(multipleChoiceProblemEditor, &MultipleChoiceProblemEditor::problemChanged, this,
-//            &ProblemEditor::problemChanged);
-//    connect(trueOrFalseProblemEditor, &TrueOrFalseProblemEditor::problemChanged, this,
-//            &ProblemEditor::problemChanged);
-//    connect(shortAnswerProblemEditor, &ShortAnswerProblemEditor::problemChanged, this,
-//            &ProblemEditor::problemChanged);
+    connect(multipleChoiceProblemViewer, &MultipleChoiceProblemViewer::answerChanged, this,
+            &ProblemViewer::answerChangedShim);
+    connect(trueOrFalseProblemViewer, &TrueOrFalseProblemViewer::answerChanged, this,
+            &ProblemViewer::answerChangedShim);
+    connect(shortAnswerProblemViewer, &ShortAnswerProblemViewer::answerChanged, this,
+            &ProblemViewer::answerChangedShim);
 
     stackedWidget->addWidget(emptyWidget);
 
@@ -67,24 +67,24 @@ void ProblemViewer::refresh() {
             singleChoiceProblemViewer->setProblem(tmp, answer);
         }
             break;
-//        case MultipleChoice:
-//        {
-//            auto tmp = std::static_pointer_cast<MultipleChoiceProblem>(this->problem);
-//            multipleChoiceProblemEditor->setProblem(tmp);
-//        }
-//            break;
-//        case TrueOrFalse:
-//        {
-//            auto tmp = std::static_pointer_cast<TrueOrFalseProblem>(this->problem);
-//            trueOrFalseProblemEditor->setProblem(tmp);
-//        }
-//            break;
-//        case ShortAnswer:
-//        {
-//            auto tmp = std::static_pointer_cast<ShortAnswerProblem>(this->problem);
-//            shortAnswerProblemEditor->setProblem(tmp);
-//        }
-//            break;
+        case MultipleChoice:
+        {
+            auto tmp = std::static_pointer_cast<MultipleChoiceProblem>(this->problem);
+            multipleChoiceProblemViewer->setProblem(tmp, answer);
+        }
+            break;
+        case TrueOrFalse:
+        {
+            auto tmp = std::static_pointer_cast<TrueOrFalseProblem>(this->problem);
+            trueOrFalseProblemViewer->setProblem(tmp, answer);
+        }
+            break;
+        case ShortAnswer:
+        {
+            auto tmp = std::static_pointer_cast<ShortAnswerProblem>(this->problem);
+            shortAnswerProblemViewer->setProblem(tmp, answer);
+        }
+            break;
         default:
             qDebug() << "Default";
             break;
@@ -119,4 +119,7 @@ void ProblemViewer::setEvaluated() {
     evaluated = true;
 
     singleChoiceProblemViewer->setEvaluated();
+    multipleChoiceProblemViewer->setEvaluated();
+    trueOrFalseProblemViewer->setEvaluated();
+    shortAnswerProblemViewer->setEvaluated();
 }

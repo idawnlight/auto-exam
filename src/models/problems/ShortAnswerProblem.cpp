@@ -46,6 +46,26 @@ double ShortAnswerProblem::evaluate(json ans) {
             }
         }
 
-        return score * (part / keywords.size());
+        return score * ((double) part / keywords.size());
     }
+}
+
+std::string ShortAnswerProblem::getKeywordsString() {
+    if (keywords.empty()) {
+        return "";
+    }
+
+    std::string keywordsString = "";
+    bool first = true;
+
+    for (auto i : keywords) {
+        if (!first) {
+            keywordsString += "，";
+        } else {
+            first = false;
+        }
+        keywordsString += i;
+    }
+
+    return keywordsString;
 }

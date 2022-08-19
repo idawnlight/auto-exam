@@ -15,7 +15,7 @@ SingleChoiceProblemViewer::SingleChoiceProblemViewer(QWidget *parent)
 
 void SingleChoiceProblemViewer::setProblem(std::shared_ptr<SingleChoiceProblem> p, json answer) {
     this->problem = p;
-    this->answer = answer;
+    this->userAnswer = answer;
 
     noSaving = true;
     refresh();
@@ -43,8 +43,8 @@ void SingleChoiceProblemViewer::refresh() {
     this->options.clear();
 
     int answerIndex = -1;
-    if (answer.is_array() && !answer.empty()) {
-        answerIndex = answer[0];
+    if (userAnswer.is_array() && !userAnswer.empty()) {
+        answerIndex = userAnswer[0];
     }
 
     for (int i = 0; i < this->problem->getOptions().size(); i++) {
@@ -54,6 +54,15 @@ void SingleChoiceProblemViewer::refresh() {
         connect(option, &RemovableLabel::radio, this, &SingleChoiceProblemViewer::saveAnswer);
         this->options.push_back(option);
         this->optionLayout->addLayout(option);
+    }
+}
+
+void SingleChoiceProblemViewer::setEvaluated() {
+    BaseProblemViewer::setEvaluated();
+    problemAnswer->setVisible(true);
+
+    for (auto i : options) {
+        i->disable();
     }
 }
 
@@ -70,14 +79,5 @@ void SingleChoiceProblemViewer::saveAnswer() {
             emit answerChanged(answer);
             return;
         }
-    }
-}
-
-void SingleChoiceProblemViewer::setEvaluated() {
-    BaseProblemViewer::setEvaluated();
-    problemAnswer->setVisible(true);
-
-    for (auto i : options) {
-        i->disable();
     }
 }

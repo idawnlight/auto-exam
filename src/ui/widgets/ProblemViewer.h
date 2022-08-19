@@ -13,9 +13,9 @@
 
 #include "models/BaseProblem.h"
 #include "problemViewer/SingleChoiceProblemViewer.h"
-//#include "problemViewer/MultipleChoiceProblemEditor.h"
-//#include "problemViewer/TrueOrFalseProblemEditor.h"
-//#include "problemViewer/ShortAnswerProblemEditor.h"
+#include "problemViewer/MultipleChoiceProblemViewer.h"
+#include "problemViewer/TrueOrFalseProblemViewer.h"
+#include "problemViewer/ShortAnswerProblemViewer.h"
 #include "NavigatorWidget.h"
 
 class ProblemViewer : public QVBoxLayout {
@@ -47,9 +47,9 @@ protected:
     QWidget* emptyWidget;
 
     SingleChoiceProblemViewer* singleChoiceProblemViewer;
-//    MultipleChoiceProblemEditor* multipleChoiceProblemEditor;
-//    TrueOrFalseProblemEditor* trueOrFalseProblemEditor;
-//    ShortAnswerProblemEditor* shortAnswerProblemEditor;
+    MultipleChoiceProblemViewer* multipleChoiceProblemViewer;
+    TrueOrFalseProblemViewer* trueOrFalseProblemViewer;
+    ShortAnswerProblemViewer* shortAnswerProblemViewer;
 
     NavigatorWidget* navigatorWidget;
 };

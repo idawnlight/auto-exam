@@ -11,15 +11,16 @@
 TrueOrFalseProblemEditor::TrueOrFalseProblemEditor(QWidget *parent)
     : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
 
-    auto optionRight = new RemovableLabel(0, QString("正确"));
+    auto optionRight = new RemovableLabel(1, QString("正确"));
     optionRight->enableRadio(contentEdit);
     optionLayout->addLayout(optionRight);
-    options.push_back(optionRight);
 
-    auto optionWrong = new RemovableLabel(1, QString("错误"));
+    auto optionWrong = new RemovableLabel(0, QString("错误"));
     optionWrong->enableRadio(contentEdit);
     optionLayout->addLayout(optionWrong);
+
     options.push_back(optionWrong);
+    options.push_back(optionRight);
 
     connect(optionRight, &RemovableLabel::radio, this, &TrueOrFalseProblemEditor::setAnswer);
     connect(optionWrong, &RemovableLabel::radio, this, &TrueOrFalseProblemEditor::setAnswer);
@@ -49,12 +50,12 @@ void TrueOrFalseProblemEditor::refresh() {
 
     contentEdit->setPlainText(QString::fromStdString(this->problem->getContent()));
 
-    options[0]->setRadioChecked(this->problem->getAnswer());
-    options[1]->setRadioChecked(!this->problem->getAnswer());
+    options[0]->setRadioChecked(!this->problem->getAnswer());
+    options[1]->setRadioChecked(this->problem->getAnswer());
 }
 
 void TrueOrFalseProblemEditor::setAnswer(int index) {
-    this->problem->setAnswer(!index);
+    this->problem->setAnswer(index);
 }
 
 void TrueOrFalseProblemEditor::setScore() {

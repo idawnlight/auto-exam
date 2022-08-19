@@ -30,5 +30,5 @@ void ExamInfoLayout::updateExamInfo(std::shared_ptr<Paper> p) {
 
 void ExamInfoLayout::setScore(double score) {
     addInfo(" ", " ");
-    addInfo("得分", QString::number(score));
+    addInfo("得分", QString::number(score, 'f', 2));
 }

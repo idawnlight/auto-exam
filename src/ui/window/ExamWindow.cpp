@@ -84,13 +84,13 @@ void ExamWindow::show() {
         std::ifstream f(fileName.toStdString());
         json data = json::parse(f);
 
-        try {
+//        try {
             paper = std::make_shared<Paper>(Paper::fromJson(data));
             problemIndicator->setAnswerPaper(std::make_shared<AnswerPaper>(paper));
 
             QWidget::show();
-        } catch (std::exception e) {
-            QMessageBox::critical(this, "打开失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
-        }
+//        } catch (std::exception e) {
+//            QMessageBox::critical(this, "打开失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
+//        }
     }
 }

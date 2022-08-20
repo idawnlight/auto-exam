@@ -13,7 +13,8 @@ RemovableLabel::RemovableLabel(int index, QString content)
       radioButton(new QRadioButton), checkBox(new QCheckBox) {
 
     setAlignment(Qt::AlignLeft);
-//    label->setFixedHeight(16);
+
+    label->setWordWrap(true);
 
     addWidget(radioButton, 0);
     addWidget(checkBox, 0);

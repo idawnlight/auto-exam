@@ -13,6 +13,8 @@ BaseProblemViewer::BaseProblemViewer(QWidget *parent)
 //    problemContent->setFixedHeight(92);
     layout->setAlignment(Qt::AlignTop);
 
+    problemContent->setWordWrap(true);
+
     layout->addWidget(problemContent);
     layout->addWidget(problemAnswer);
 

@@ -21,21 +21,15 @@ public:
     explicit SingleChoiceProblemViewer(QWidget *parent = nullptr);
 
     void setProblem(std::shared_ptr<SingleChoiceProblem> p, json answer);
-
     std::shared_ptr<SingleChoiceProblem> getProblem();
-
     void refresh() override;
-
     void setEvaluated() override;
 
-public
-    slots:
-            void saveAnswer()
-    override;
+public slots:
+    void saveAnswer() override;
 
-    signals:
-            void problemChanged(std::shared_ptr<SingleChoiceProblem>
-    problem);
+signals:
+    void problemChanged(std::shared_ptr<SingleChoiceProblem> problem);
 
 protected:
     std::shared_ptr<SingleChoiceProblem> problem;

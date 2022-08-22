@@ -21,21 +21,15 @@ public:
     explicit TrueOrFalseProblemViewer(QWidget *parent = nullptr);
 
     void setProblem(std::shared_ptr<TrueOrFalseProblem> p, json answer);
-
     std::shared_ptr<TrueOrFalseProblem> getProblem();
-
     void refresh() override;
-
     void setEvaluated() override;
 
-public
-    slots:
-            void saveAnswer()
-    override;
+public slots:
+    void saveAnswer() override;
 
-    signals:
-            void problemChanged(std::shared_ptr<TrueOrFalseProblem>
-    problem);
+signals:
+    void problemChanged(std::shared_ptr<TrueOrFalseProblem> problem);
 
 protected:
     std::shared_ptr<TrueOrFalseProblem> problem;

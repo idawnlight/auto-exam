@@ -20,17 +20,13 @@ public:
     explicit BaseProblemViewer(QWidget *parent = nullptr);
 
     virtual void refresh() = 0;
-
     virtual void setEvaluated();
 
-public
-    slots:
-
+public slots:
     virtual void saveAnswer() = 0;
 
-    signals:
-            void answerChanged(json
-    answer);
+signals:
+    void answerChanged(json answer);
 
 protected:
     QVBoxLayout *layout;

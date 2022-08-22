@@ -11,7 +11,8 @@
 
 #include "../BaseProblem.h"
 
-class TrueOrFalseProblem : public BaseProblem {
+class TrueOrFalseProblem : public BaseProblem
+{
 protected:
     bool answer;
 
@@ -22,9 +23,7 @@ public:
 
     bool getAnswer() const;
     void setAnswer(bool answer);
-
     double evaluate(json ans) override;
-
     json toJson() override;
 };
 

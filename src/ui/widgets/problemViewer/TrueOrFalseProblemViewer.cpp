@@ -9,11 +9,13 @@
 #include "TrueOrFalseProblemViewer.h"
 
 TrueOrFalseProblemViewer::TrueOrFalseProblemViewer(QWidget *parent)
-    : BaseProblemViewer(parent), optionLayout(new QVBoxLayout) {
+        : BaseProblemViewer(parent), optionLayout(new QVBoxLayout)
+{
     layout->addLayout(optionLayout);
 }
 
-void TrueOrFalseProblemViewer::setProblem(std::shared_ptr<TrueOrFalseProblem> p, json answer) {
+void TrueOrFalseProblemViewer::setProblem(std::shared_ptr<TrueOrFalseProblem> p, json answer)
+{
     this->problem = p;
     this->userAnswer = answer;
 
@@ -22,12 +24,15 @@ void TrueOrFalseProblemViewer::setProblem(std::shared_ptr<TrueOrFalseProblem> p,
     noSaving = false;
 }
 
-std::shared_ptr<TrueOrFalseProblem> TrueOrFalseProblemViewer::getProblem() {
+std::shared_ptr<TrueOrFalseProblem> TrueOrFalseProblemViewer::getProblem()
+{
     return this->problem;
 }
 
-void TrueOrFalseProblemViewer::refresh() {
-    if (this->problem == nullptr) {
+void TrueOrFalseProblemViewer::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
@@ -37,7 +42,8 @@ void TrueOrFalseProblemViewer::refresh() {
 
     if (evaluated) problemAnswer->setVisible(true);
 
-    for (auto option : this->options) {
+    for (auto option: this->options)
+    {
         delete option;
     }
 
@@ -58,7 +64,8 @@ void TrueOrFalseProblemViewer::refresh() {
     options.push_back(optionRight);
 
     bool flag = false;
-    if (userAnswer.is_array() && !userAnswer.empty()) {
+    if (userAnswer.is_array() && !userAnswer.empty())
+    {
         flag = true;
     }
 
@@ -66,17 +73,21 @@ void TrueOrFalseProblemViewer::refresh() {
     options[1]->setRadioChecked(flag && userAnswer[0]);
 }
 
-void TrueOrFalseProblemViewer::setEvaluated() {
+void TrueOrFalseProblemViewer::setEvaluated()
+{
     BaseProblemViewer::setEvaluated();
     problemAnswer->setVisible(true);
 
-    for (auto i : options) {
+    for (auto i: options)
+    {
         i->disable();
     }
 }
 
-void TrueOrFalseProblemViewer::saveAnswer() {
-    if (this->problem == nullptr || noSaving) {
+void TrueOrFalseProblemViewer::saveAnswer()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 

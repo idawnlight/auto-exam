@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file AlignedInfoLayout.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Aligned Info Layout based on QGridLayout
  * @date 2022/8/15
  */
 
@@ -11,11 +11,12 @@
 
 #include <QtWidgets>
 
-class AlignedInfoLayout : public QGridLayout {
+class AlignedInfoLayout : public QGridLayout
+{
     Q_OBJECT
 
 protected:
-    QList<QPair<QLabel *, QLabel *>> labels;
+    QList <QPair<QLabel *, QLabel *>> labels;
 
 public:
     AlignedInfoLayout(QWidget *parent = nullptr);

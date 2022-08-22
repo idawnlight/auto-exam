@@ -2,13 +2,14 @@
  * @project Automatic Examination
  * @file NavigatorWidget.cpp
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Navigator Widget
  * @date 2022/8/17
  */
 
 #include "NavigatorWidget.h"
 
-NavigatorWidget::NavigatorWidget(QWidget *parent) : QWidget(parent) {
+NavigatorWidget::NavigatorWidget(QWidget *parent) : QWidget(parent)
+{
     auto layout = new QHBoxLayout(this);
 
     previousButton = new QPushButton("上一题");
@@ -26,8 +27,10 @@ NavigatorWidget::NavigatorWidget(QWidget *parent) : QWidget(parent) {
     setLayout(layout);
 }
 
-void NavigatorWidget::setStatus(NavigatorStatus status) {
-    switch (status) {
+void NavigatorWidget::setStatus(NavigatorStatus status)
+{
+    switch (status)
+    {
         case NavigatorStatus::None:
             previousButton->setDisabled(true);
             nextButton->setDisabled(true);

@@ -2,22 +2,23 @@
  * @project Automatic Examination
  * @file ProblemViewer.cpp
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Viewer Layout
  * @date 2022/8/19
  */
 
 #include "ProblemViewer.h"
 
 ProblemViewer::ProblemViewer(QWidget *parent, std::shared_ptr<BaseProblem> problem)
-    : QVBoxLayout(parent),
-      stackedWidget(new QStackedWidget()),
-      problem(problem),
-      emptyWidget(new QWidget),
-      singleChoiceProblemViewer(new SingleChoiceProblemViewer),
-      multipleChoiceProblemViewer(new MultipleChoiceProblemViewer),
-      trueOrFalseProblemViewer(new TrueOrFalseProblemViewer),
-      shortAnswerProblemViewer(new ShortAnswerProblemViewer),
-      navigatorWidget(new NavigatorWidget) {
+        : QVBoxLayout(parent),
+          stackedWidget(new QStackedWidget()),
+          problem(problem),
+          emptyWidget(new QWidget),
+          singleChoiceProblemViewer(new SingleChoiceProblemViewer),
+          multipleChoiceProblemViewer(new MultipleChoiceProblemViewer),
+          trueOrFalseProblemViewer(new TrueOrFalseProblemViewer),
+          shortAnswerProblemViewer(new ShortAnswerProblemViewer),
+          navigatorWidget(new NavigatorWidget)
+{
     addWidget(stackedWidget);
 
     stackedWidget->addWidget(singleChoiceProblemViewer);
@@ -46,21 +47,26 @@ ProblemViewer::ProblemViewer(QWidget *parent, std::shared_ptr<BaseProblem> probl
 
     addLayout(bottomLayout, 0);
 
-    if (problem != nullptr) {
+    if (problem != nullptr)
+    {
         refresh();
-    } else {
+    } else
+    {
         stackedWidget->setCurrentWidget(emptyWidget);
     }
 }
 
-void ProblemViewer::refresh() {
-    if (this->problem == nullptr) {
+void ProblemViewer::refresh()
+{
+    if (this->problem == nullptr)
+    {
         navigatorWidget->setStatus(NavigatorStatus::None);
         stackedWidget->setCurrentWidget(emptyWidget);
         return;
     }
 
-    switch (problem->getProblemType()) {
+    switch (problem->getProblemType())
+    {
         case SingleChoice:
         {
             auto tmp = std::static_pointer_cast<SingleChoiceProblem>(this->problem);
@@ -93,7 +99,8 @@ void ProblemViewer::refresh() {
     stackedWidget->setCurrentIndex(problem->getProblemType());
 }
 
-void ProblemViewer::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status, json answer) {
+void ProblemViewer::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status, json answer)
+{
     currentIndex = index;
     this->problem = problem;
     this->answer = answer;
@@ -103,19 +110,23 @@ void ProblemViewer::setProblem(std::shared_ptr<BaseProblem> problem, int index, 
     emit problemChanged(problem);
 }
 
-void ProblemViewer::navigateProblemPrevious() {
+void ProblemViewer::navigateProblemPrevious()
+{
     emit navigateProblem(currentIndex - 1);
 }
 
-void ProblemViewer::navigateProblemNext() {
+void ProblemViewer::navigateProblemNext()
+{
     emit navigateProblem(currentIndex + 1);
 }
 
-void ProblemViewer::answerChangedShim(json answer) {
+void ProblemViewer::answerChangedShim(json answer)
+{
     emit answerChanged(currentIndex, answer);
 }
 
-void ProblemViewer::setEvaluated() {
+void ProblemViewer::setEvaluated()
+{
     evaluated = true;
 
     singleChoiceProblemViewer->setEvaluated();

@@ -9,11 +9,13 @@
 #include "SingleChoiceProblemViewer.h"
 
 SingleChoiceProblemViewer::SingleChoiceProblemViewer(QWidget *parent)
-    : BaseProblemViewer(parent), optionLayout(new QVBoxLayout) {
+        : BaseProblemViewer(parent), optionLayout(new QVBoxLayout)
+{
     layout->addLayout(optionLayout);
 }
 
-void SingleChoiceProblemViewer::setProblem(std::shared_ptr<SingleChoiceProblem> p, json answer) {
+void SingleChoiceProblemViewer::setProblem(std::shared_ptr<SingleChoiceProblem> p, json answer)
+{
     this->problem = p;
     this->userAnswer = answer;
 
@@ -22,12 +24,15 @@ void SingleChoiceProblemViewer::setProblem(std::shared_ptr<SingleChoiceProblem> 
     noSaving = false;
 }
 
-std::shared_ptr<SingleChoiceProblem> SingleChoiceProblemViewer::getProblem() {
+std::shared_ptr<SingleChoiceProblem> SingleChoiceProblemViewer::getProblem()
+{
     return this->problem;
 }
 
-void SingleChoiceProblemViewer::refresh() {
-    if (this->problem == nullptr) {
+void SingleChoiceProblemViewer::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
@@ -36,18 +41,21 @@ void SingleChoiceProblemViewer::refresh() {
 
     if (evaluated) problemAnswer->setVisible(true);
 
-    for (auto option : this->options) {
+    for (auto option: this->options)
+    {
         delete option;
     }
 
     this->options.clear();
 
     int answerIndex = -1;
-    if (userAnswer.is_array() && !userAnswer.empty()) {
+    if (userAnswer.is_array() && !userAnswer.empty())
+    {
         answerIndex = userAnswer[0];
     }
 
-    for (int i = 0; i < this->problem->getOptions().size(); i++) {
+    for (int i = 0; i < this->problem->getOptions().size(); i++)
+    {
         auto option = new RemovableLabel(i, QString::fromStdString(this->problem->getOptions()[i]));
         option->enableRadio(problemContent, i == answerIndex);
         if (evaluated) option->disable();
@@ -57,24 +65,30 @@ void SingleChoiceProblemViewer::refresh() {
     }
 }
 
-void SingleChoiceProblemViewer::setEvaluated() {
+void SingleChoiceProblemViewer::setEvaluated()
+{
     BaseProblemViewer::setEvaluated();
     problemAnswer->setVisible(true);
 
-    for (auto i : options) {
+    for (auto i: options)
+    {
         i->disable();
     }
 }
 
-void SingleChoiceProblemViewer::saveAnswer() {
-    if (this->problem == nullptr || noSaving) {
+void SingleChoiceProblemViewer::saveAnswer()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 
     json answer = json::array();
 
-    for (int i = 0; i < options.count(); i++) {
-        if (options[i]->isRadioChecked()) {
+    for (int i = 0; i < options.count(); i++)
+    {
+        if (options[i]->isRadioChecked())
+        {
             answer.push_back(i);
             emit answerChanged(answer);
             return;

@@ -2,7 +2,6 @@
  * @project Automatic Examination
  * @file MultipleChoiceProblemEditor.h
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
@@ -13,7 +12,8 @@
 #include "BaseProblemEditor.h"
 #include "ui/widgets/RemovableLineEdit.h"
 
-class MultipleChoiceProblemEditor : public BaseProblemEditor {
+class MultipleChoiceProblemEditor : public BaseProblemEditor
+{
     Q_OBJECT
 
 public:
@@ -21,7 +21,6 @@ public:
 
     void setProblem(std::shared_ptr<MultipleChoiceProblem> p);
     std::shared_ptr<MultipleChoiceProblem> getProblem();
-
     void refresh() override;
 
 public slots:
@@ -36,7 +35,7 @@ signals:
 
 protected:
     std::shared_ptr<MultipleChoiceProblem> problem;
-    QVBoxLayout * optionLayout;
+    QVBoxLayout *optionLayout;
     QList<RemovableLineEdit *> options;
 };
 

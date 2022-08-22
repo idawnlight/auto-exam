@@ -8,15 +8,12 @@
 
 #include "EntryWidget.h"
 
-EntryWidget::EntryWidget(QWidget *parent) {
+EntryWidget::EntryWidget(QWidget *parent)
+{
     auto mainLayout = new QVBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("选择 - 自动考试系统");
     setMinimumWidth(300);
-
-    // Title
-//    auto titleLabel = new QLabel("<h2>选择</h2>");
-//    mainLayout->addWidget(titleLabel);
 
     // Selections
     auto editButton = new QPushButton("制卷");

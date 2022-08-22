@@ -12,27 +12,33 @@
 #include "BaseProblemViewer.h"
 #include "models/problems/ShortAnswerProblem.h"
 
-class ShortAnswerProblemViewer : public BaseProblemViewer {
+class ShortAnswerProblemViewer : public BaseProblemViewer
+{
     Q_OBJECT
 
 public:
-    explicit ShortAnswerProblemViewer(QWidget * parent = nullptr);
+    explicit ShortAnswerProblemViewer(QWidget *parent = nullptr);
 
     void setProblem(std::shared_ptr<ShortAnswerProblem> p, json answer);
+
     std::shared_ptr<ShortAnswerProblem> getProblem();
 
     void refresh() override;
+
     void setEvaluated() override;
 
-public slots:
-    void saveAnswer() override;
+public
+    slots:
+            void saveAnswer()
+    override;
 
-signals:
-    void problemChanged(std::shared_ptr<ShortAnswerProblem> problem);
+    signals:
+            void problemChanged(std::shared_ptr<ShortAnswerProblem>
+    problem);
 
 protected:
     std::shared_ptr<ShortAnswerProblem> problem;
-    QPlainTextEdit * answerEdit;
+    QPlainTextEdit *answerEdit;
 };
 
 

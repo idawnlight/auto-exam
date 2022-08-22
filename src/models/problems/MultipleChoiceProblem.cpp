@@ -8,46 +8,57 @@
 
 #include "MultipleChoiceProblem.h"
 
-MultipleChoiceProblem::MultipleChoiceProblem() {
+MultipleChoiceProblem::MultipleChoiceProblem()
+{
     problemType = MultipleChoice;
-//    userAnswer.push_back(0);
 }
 
-MultipleChoiceProblem::MultipleChoiceProblem(json j) : BaseProblem(j) {
+MultipleChoiceProblem::MultipleChoiceProblem(json j) : BaseProblem(j)
+{
     j.at("answer").get_to(answer);
     j.at("options").get_to(options);
 }
 
-json MultipleChoiceProblem::toJson() {
+json MultipleChoiceProblem::toJson()
+{
     auto j = BaseProblem::toJson();
     j["answer"] = answer;
     j["options"] = options;
     return j;
 }
 
-const std::set<int> &MultipleChoiceProblem::getAnswer() const {
+const std::set<int> &MultipleChoiceProblem::getAnswer() const
+{
     return answer;
 }
 
-void MultipleChoiceProblem::setAnswer(const std::set<int> &answer) {
+void MultipleChoiceProblem::setAnswer(const std::set<int> &answer)
+{
     MultipleChoiceProblem::answer = answer;
 }
 
-const std::vector<std::string> &MultipleChoiceProblem::getOptions() const {
+const std::vector<std::string> &MultipleChoiceProblem::getOptions() const
+{
     return options;
 }
 
-void MultipleChoiceProblem::setOptions(const std::vector<std::string> &options) {
+void MultipleChoiceProblem::setOptions(const std::vector<std::string> &options)
+{
     MultipleChoiceProblem::options = options;
 }
 
-double MultipleChoiceProblem::evaluate(json ans) {
-    if (!ans.is_array() || ans.empty() || ans.size() > answer.size()) {
+double MultipleChoiceProblem::evaluate(json ans)
+{
+    if (!ans.is_array() || ans.empty() || ans.size() > answer.size())
+    {
         return 0;
-    } else if (answer.empty()) {
+    } else if (answer.empty())
+    {
         return score;
-    } else {
-        for (const auto& userAns : ans) {
+    } else
+    {
+        for (const auto &userAns: ans)
+        {
             if (answer.find(userAns) == answer.end()) return 0;
         }
 
@@ -55,18 +66,23 @@ double MultipleChoiceProblem::evaluate(json ans) {
     }
 }
 
-std::string MultipleChoiceProblem::getAnswerString() {
-    if (answer.empty()) {
+std::string MultipleChoiceProblem::getAnswerString()
+{
+    if (answer.empty())
+    {
         return "";
     }
 
     std::string answerString = "";
     bool first = true;
 
-    for (auto i : answer) {
-        if (!first) {
+    for (auto i: answer)
+    {
+        if (!first)
+        {
             answerString += "，";
-        } else {
+        } else
+        {
             first = false;
         }
         answerString += i + 'A';

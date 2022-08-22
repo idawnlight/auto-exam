@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file NavigatorWidget.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Navigator Widget
  * @date 2022/8/17
  */
 
@@ -11,14 +11,16 @@
 
 #include <QtWidgets>
 
-enum class NavigatorStatus {
+enum class NavigatorStatus
+{
     None,
     Middle,
     First,
     Last
 };
 
-class NavigatorWidget : public QWidget {
+class NavigatorWidget : public QWidget
+{
     Q_OBJECT
 
 public:
@@ -27,8 +29,8 @@ public:
     void setStatus(NavigatorStatus status);
 
 protected:
-    QPushButton * previousButton;
-    QPushButton * nextButton;
+    QPushButton *previousButton;
+    QPushButton *nextButton;
 
 signals:
     void previous();

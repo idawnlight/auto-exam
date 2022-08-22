@@ -18,17 +18,16 @@
 
 #include <vector>
 
-class Paper {
+class Paper
+{
 public:
     std::vector<std::shared_ptr<BaseProblem>> &getProblems();
-
     std::shared_ptr<BaseProblem> getProblem(int index);
     int problemCount();
     int problemCount(ProblemType);
     double scoreCount();
-
-    void mock();
     json toJson() const;
+
     static Paper fromJson(const json);
 
 protected:

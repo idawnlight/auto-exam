@@ -9,41 +9,49 @@
 #include <QDebug>
 #include "AnswerPaper.h"
 
-AnswerPaper::AnswerPaper() {
+AnswerPaper::AnswerPaper()
+{
     paper = std::make_shared<Paper>();
     answers.reserve(1000);
 }
 
-AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper) {
+AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper)
+{
     answers.reserve(1000);
 }
 
-std::shared_ptr<Paper> AnswerPaper::getPaper() {
+std::shared_ptr<Paper> AnswerPaper::getPaper()
+{
     return paper;
 }
 
-void AnswerPaper::setPaper(const std::shared_ptr<Paper> &paper) {
+void AnswerPaper::setPaper(const std::shared_ptr<Paper> &paper)
+{
     AnswerPaper::paper = paper;
 }
 
-const std::vector<json> &AnswerPaper::getAnswers() const {
+const std::vector<json> &AnswerPaper::getAnswers() const
+{
     return answers;
 }
 
-void AnswerPaper::setAnswers(const std::vector<json> &answers) {
+void AnswerPaper::setAnswers(const std::vector<json> &answers)
+{
     AnswerPaper::answers = answers;
 }
 
-json AnswerPaper::getAnswer(int index) {
-    try {
+json AnswerPaper::getAnswer(int index)
+{
+    try
+    {
         return answers[index];
-    } catch (std::exception &e) {
+    } catch (std::exception &e)
+    {
         return json::array();
     }
 }
 
-void AnswerPaper::setAnswer(int index, json answer) {
-//    qDebug() << QString::fromStdString(answer.dump());
+void AnswerPaper::setAnswer(int index, json answer)
+{
     answers[index] = answer;
-    qDebug() << QString::fromStdString(answers[index].dump());
 }

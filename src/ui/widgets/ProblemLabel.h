@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file ProblemLabel.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Label for problem info
  * @date 2022/8/17
  */
 
@@ -13,7 +13,8 @@
 
 #include "models/BaseProblem.h"
 
-class ProblemLabel : public QLabel {
+class ProblemLabel : public QLabel
+{
     Q_OBJECT
 
 public:

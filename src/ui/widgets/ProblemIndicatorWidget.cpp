@@ -9,11 +9,13 @@
 #include "ProblemIndicatorWidget.h"
 
 ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<Paper> p, bool isEditing)
-    : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), isEditing) {}
+        : ProblemIndicatorWidget(std::make_shared<AnswerPaper>(p), isEditing)
+{}
 
 ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, bool isEditing)
-    : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing), buttonGroup(new QButtonGroup(this)) {
-    QWidget *client = new QWidget;
+        : answerPaper(p), layout(new QGridLayout()), isEditing(isEditing), buttonGroup(new QButtonGroup(this))
+{
+    QWidget * client = new QWidget;
     client->setLayout(layout);
     layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
@@ -24,15 +26,19 @@ ProblemIndicatorWidget::ProblemIndicatorWidget(std::shared_ptr<AnswerPaper> p, b
 
     layout->setSpacing(1);
 
-    if (p != nullptr) {
+    if (p != nullptr)
+    {
         setAnswerPaper(p);
     }
 }
 
-void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p) {
-    for (auto i : buttons) {
+void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p)
+{
+    for (auto i: buttons)
+    {
         layout->removeWidget(i);
-        if (i->text() != "+") {
+        if (i->text() != "+")
+        {
             buttonGroup->removeButton(i);
         }
         delete i;
@@ -42,31 +48,24 @@ void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p) {
     answerPaper = p;
 
     auto size = answerPaper->getPaper()->getProblems().size();
-    for (int i = 0; i <= size; i++) {
+    for (int i = 0; i <= size; i++)
+    {
         auto btn = new QPushButton();
 
-        if (i != size) {
+        if (i != size)
+        {
             buttonGroup->addButton(btn);
             btn->setProperty("id", i);
             btn->setText(QString::number(i + 1));
             btn->setCheckable(true);
             btn->setStyleSheet(buttonStyleDefault);
-//            switch (i % 3) {
-//                case 0:
-//                    btn->setStyleSheet(buttonStyleDefault + buttonStyleRight);
-//                    break;
-//                case 1:
-//                    btn->setStyleSheet(buttonStyleDefault + buttonStylePartRight);
-//                    break;
-//                case 2:
-//                    btn->setStyleSheet(buttonStyleDefault + buttonStyleWrong);
-//                    break;
-//            }
-        } else if (isEditing) {
+        } else if (isEditing)
+        {
             btn->setText("+");
             btn->setStyleSheet(buttonStyleDefault);
             connect(btn, &QAbstractButton::clicked, this, &ProblemIndicatorWidget::addProblem);
-        } else {
+        } else
+        {
             break;
         }
 
@@ -78,30 +77,36 @@ void ProblemIndicatorWidget::setAnswerPaper(std::shared_ptr<AnswerPaper> p) {
     emit paperChanged(this->answerPaper->getPaper());
 }
 
-void ProblemIndicatorWidget::problemClicked(QAbstractButton *button) {
+void ProblemIndicatorWidget::problemClicked(QAbstractButton *button)
+{
     auto index = button->property("id").toInt();
     auto navigatorStatus = NavigatorStatus::None;
-    if (answerPaper->getPaper()->problemCount() == 1) {
+    if (answerPaper->getPaper()->problemCount() == 1)
+    {
         navigatorStatus = NavigatorStatus::None;
-    } else if (index == 0) {
+    } else if (index == 0)
+    {
         navigatorStatus = NavigatorStatus::First;
-    } else if (index == answerPaper->getPaper()->getProblems().size() - 1) {
+    } else if (index == answerPaper->getPaper()->getProblems().size() - 1)
+    {
         navigatorStatus = NavigatorStatus::Last;
-    } else {
+    } else
+    {
         navigatorStatus = NavigatorStatus::Middle;
     }
-//    qDebug() << button->text();
-//    qDebug() << QString::fromStdString(answerPaper->getAnswer(index).dump());
-    emit selectionChanged(answerPaper->getPaper()->getProblem(index), index, navigatorStatus, answerPaper->getAnswer(index));
+    emit selectionChanged(answerPaper->getPaper()->getProblem(index), index, navigatorStatus,
+                          answerPaper->getAnswer(index));
 }
 
-void ProblemIndicatorWidget::addProblem() {
+void ProblemIndicatorWidget::addProblem()
+{
     QStringList items;
     items << "单选" << "多选" << "判断" << "简答";
 
     bool ok;
     QString item = QInputDialog::getItem(this, "选择题型", "题型", items, 0, false, &ok);
-    if (ok && !item.isEmpty()) {
+    if (ok && !item.isEmpty())
+    {
         auto btn = new QPushButton();
         buttonGroup->addButton(btn);
 
@@ -118,7 +123,8 @@ void ProblemIndicatorWidget::addProblem() {
         buttons.insert(buttons.end() - 1, btn);
         appendButton(btn);
 
-        switch (items.indexOf(item)) {
+        switch (items.indexOf(item))
+        {
             case 0:
             {
                 auto problem = std::make_shared<SingleChoiceProblem>();
@@ -145,18 +151,19 @@ void ProblemIndicatorWidget::addProblem() {
                 break;
         }
 
-        if (i == 0) {
+        if (i == 0)
+        {
             emit selectionChanged(answerPaper->getPaper()->getProblem(i), i, NavigatorStatus::None);
-        } else {
+        } else
+        {
             emit selectionChanged(answerPaper->getPaper()->getProblem(i), i, NavigatorStatus::Last);
         }
         emit paperChanged(answerPaper->getPaper());
-
-//        qDebug() << item;
     }
 }
 
-void ProblemIndicatorWidget::appendButton(QAbstractButton *button) {
+void ProblemIndicatorWidget::appendButton(QAbstractButton *button)
+{
     int i = button->property("id").toInt();
 
     auto j = i + 1;
@@ -166,11 +173,13 @@ void ProblemIndicatorWidget::appendButton(QAbstractButton *button) {
     layout->addWidget(button, i / 4, i % 4);
 }
 
-void ProblemIndicatorWidget::touchPaper() {
+void ProblemIndicatorWidget::touchPaper()
+{
     emit paperChanged(answerPaper->getPaper());
 }
 
-void ProblemIndicatorWidget::removeProblem(int index) {
+void ProblemIndicatorWidget::removeProblem(int index)
+{
     answerPaper->getPaper()->getProblems().erase(answerPaper->getPaper()->getProblems().begin() + index);
 
     layout->removeWidget(buttons[index]);
@@ -180,10 +189,12 @@ void ProblemIndicatorWidget::removeProblem(int index) {
     delete buttons[index];
     buttons.erase(buttons.begin() + index);
 
-    for (int j = index; j < buttons.size(); j++) {
+    for (int j = index; j < buttons.size(); j++)
+    {
         layout->removeWidget(buttons[j]);
 
-        if (j != buttons.size() - 1) {
+        if (j != buttons.size() - 1)
+        {
             buttons[j]->setProperty("id", j);
             buttons[j]->setText(QString::number(j + 1));
         }
@@ -195,28 +206,36 @@ void ProblemIndicatorWidget::removeProblem(int index) {
     emit paperChanged(answerPaper->getPaper());
 }
 
-void ProblemIndicatorWidget::navigateProblem(int index) {
-    if (index < 0 || index >= answerPaper->getPaper()->problemCount()) {
+void ProblemIndicatorWidget::navigateProblem(int index)
+{
+    if (index < 0 || index >= answerPaper->getPaper()->problemCount())
+    {
         return;
     }
 
     buttons[index]->click();
 }
 
-void ProblemIndicatorWidget::setAnswer(int index, json answer) {
+void ProblemIndicatorWidget::setAnswer(int index, json answer)
+{
     answerPaper->setAnswer(index, answer);
 }
 
-double ProblemIndicatorWidget::evaluate() {
+double ProblemIndicatorWidget::evaluate()
+{
     double score = 0;
 
-    for (int i = 0; i < answerPaper->getPaper()->problemCount(); i++) {
+    for (int i = 0; i < answerPaper->getPaper()->problemCount(); i++)
+    {
         double tmpScore = answerPaper->getPaper()->getProblems()[i]->evaluate(answerPaper->getAnswer(i));
-        if (tmpScore == 0) {
+        if (tmpScore == 0)
+        {
             buttons[i]->setStyleSheet(buttonStyleDefault + buttonStyleWrong);
-        } else if (tmpScore != answerPaper->getPaper()->getProblems()[i]->getScore()) {
+        } else if (tmpScore != answerPaper->getPaper()->getProblems()[i]->getScore())
+        {
             buttons[i]->setStyleSheet(buttonStyleDefault + buttonStylePartRight);
-        } else {
+        } else
+        {
             buttons[i]->setStyleSheet(buttonStyleDefault + buttonStyleRight);
         }
         score += tmpScore;

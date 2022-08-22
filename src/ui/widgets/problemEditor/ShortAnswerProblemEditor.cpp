@@ -2,14 +2,14 @@
  * @project Automatic Examination
  * @file ShortAnswerProblemEditor.cpp
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
 #include "ShortAnswerProblemEditor.h"
 
 ShortAnswerProblemEditor::ShortAnswerProblemEditor(QWidget *parent)
-    : BaseProblemEditor(parent), keywordsLayout(new QVBoxLayout) {
+        : BaseProblemEditor(parent), keywordsLayout(new QVBoxLayout)
+{
 
     layout->addLayout(keywordsLayout);
 
@@ -20,31 +20,37 @@ ShortAnswerProblemEditor::ShortAnswerProblemEditor(QWidget *parent)
     layout->addLayout(buttonLayout);
 }
 
-void ShortAnswerProblemEditor::setProblem(std::shared_ptr<ShortAnswerProblem> p) {
+void ShortAnswerProblemEditor::setProblem(std::shared_ptr<ShortAnswerProblem> p)
+{
     this->problem = p;
     noSaving = true;
     refresh();
     noSaving = false;
 }
 
-std::shared_ptr<ShortAnswerProblem> ShortAnswerProblemEditor::getProblem() {
+std::shared_ptr<ShortAnswerProblem> ShortAnswerProblemEditor::getProblem()
+{
     return this->problem;
 }
 
-void ShortAnswerProblemEditor::refresh() {
-    if (this->problem == nullptr) {
+void ShortAnswerProblemEditor::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
     contentEdit->setPlainText(QString::fromStdString(this->problem->getContent()));
 
-    for (auto keyword : this->keywords) {
+    for (auto keyword: this->keywords)
+    {
         delete keyword;
     }
 
     this->keywords.clear();
 
-    for (const auto& i : this->problem->getKeywords()) {
+    for (const auto &i: this->problem->getKeywords())
+    {
         auto keyword = new RemovableLineEdit(0, QString::fromStdString(i));
         connect(keyword, &RemovableLineEdit::remove, this, &ShortAnswerProblemEditor::removeKeyword);
         connect(keyword, &RemovableLineEdit::editingFinished, this, &ShortAnswerProblemEditor::saveProblem);
@@ -53,7 +59,8 @@ void ShortAnswerProblemEditor::refresh() {
     }
 }
 
-void ShortAnswerProblemEditor::addKeyword() {
+void ShortAnswerProblemEditor::addKeyword()
+{
     auto keyword = new RemovableLineEdit(keywords.count());
 
     connect(keyword, &RemovableLineEdit::remove, this, &ShortAnswerProblemEditor::removeKeyword);
@@ -63,27 +70,32 @@ void ShortAnswerProblemEditor::addKeyword() {
     keywordsLayout->addLayout(keyword);
 }
 
-void ShortAnswerProblemEditor::removeKeyword(int index) {
+void ShortAnswerProblemEditor::removeKeyword(int index)
+{
     delete this->keywords[index];
     this->keywords.erase(this->keywords.begin() + index);
 
     saveProblem();
 }
 
-void ShortAnswerProblemEditor::setScore() {
+void ShortAnswerProblemEditor::setScore()
+{
     bool ok;
     double d = QInputDialog::getDouble(this, "设定分值",
                                        "分值", this->problem->getScore(), 0, 100, 2, &ok,
                                        Qt::WindowFlags(), 1);
-    if (ok) {
+    if (ok)
+    {
         this->problem->setScore(d);
 
         emit problemChanged(this->problem);
     }
 }
 
-void ShortAnswerProblemEditor::saveProblem() {
-    if (this->problem == nullptr || noSaving) {
+void ShortAnswerProblemEditor::saveProblem()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 
@@ -91,7 +103,8 @@ void ShortAnswerProblemEditor::saveProblem() {
 
     std::set<std::string> problemKeywords;
 
-    for (int i = 0; i < keywords.count(); i++) {
+    for (int i = 0; i < keywords.count(); i++)
+    {
         problemKeywords.insert(keywords[i]->getContent().toStdString());
     }
 

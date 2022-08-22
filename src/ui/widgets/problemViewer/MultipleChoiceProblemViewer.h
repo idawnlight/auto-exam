@@ -13,27 +13,33 @@
 #include "models/problems/MultipleChoiceProblem.h"
 #include "ui/widgets/RemovableLabel.h"
 
-class MultipleChoiceProblemViewer : public BaseProblemViewer {
+class MultipleChoiceProblemViewer : public BaseProblemViewer
+{
     Q_OBJECT
 
 public:
-    explicit MultipleChoiceProblemViewer(QWidget * parent = nullptr);
+    explicit MultipleChoiceProblemViewer(QWidget *parent = nullptr);
 
     void setProblem(std::shared_ptr<MultipleChoiceProblem> p, json answer);
+
     std::shared_ptr<MultipleChoiceProblem> getProblem();
 
     void refresh() override;
+
     void setEvaluated() override;
 
-public slots:
-    void saveAnswer() override;
+public
+    slots:
+            void saveAnswer()
+    override;
 
-signals:
-    void problemChanged(std::shared_ptr<MultipleChoiceProblem> problem);
+    signals:
+            void problemChanged(std::shared_ptr<MultipleChoiceProblem>
+    problem);
 
 protected:
     std::shared_ptr<MultipleChoiceProblem> problem;
-    QVBoxLayout * optionLayout;
+    QVBoxLayout *optionLayout;
     QList<RemovableLabel *> options;
 
 };

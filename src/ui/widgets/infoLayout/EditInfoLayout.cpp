@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file EditInfoLayout.cpp
  * @location src/ui/widgets/infoLayout
- * @brief This message displayed in Doxygen Files index
+ * @brief Aligned Info Layout for editing
  * @date 2022/8/15
  */
 
@@ -19,7 +19,8 @@ EditInfoLayout::EditInfoLayout(QWidget *parent) : AlignedInfoLayout(parent)
     addInfo("简答题数", "0");
 }
 
-void EditInfoLayout::updateEditInfo(std::shared_ptr<Paper> p) {
+void EditInfoLayout::updateEditInfo(std::shared_ptr<Paper> p)
+{
     updateInfo("已出题目数", QString::number(p->problemCount()));
     updateInfo("已出分值", QString::number(p->scoreCount()));
 

@@ -13,7 +13,8 @@
 
 #include "../BaseProblem.h"
 
-class ShortAnswerProblem : public BaseProblem {
+class ShortAnswerProblem : public BaseProblem
+{
 protected:
     std::set<std::string> keywords;
 
@@ -24,9 +25,7 @@ public:
     const std::set<std::string> &getKeywords() const;
     void setKeywords(const std::set<std::string> &keywords);
     std::string getKeywordsString();
-
     double evaluate(json ans) override;
-
     json toJson() override;
 };
 

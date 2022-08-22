@@ -9,7 +9,8 @@
 #include "BaseProblemViewer.h"
 
 BaseProblemViewer::BaseProblemViewer(QWidget *parent)
-    : QWidget(parent), layout(new QVBoxLayout(this)), problemContent(new QLabel()), problemAnswer(new QLabel()) {
+        : QWidget(parent), layout(new QVBoxLayout(this)), problemContent(new QLabel()), problemAnswer(new QLabel())
+{
 //    problemContent->setFixedHeight(92);
     layout->setAlignment(Qt::AlignTop);
 
@@ -21,6 +22,7 @@ BaseProblemViewer::BaseProblemViewer(QWidget *parent)
     problemAnswer->setVisible(false);
 }
 
-void BaseProblemViewer::setEvaluated() {
+void BaseProblemViewer::setEvaluated()
+{
     evaluated = true;
 }

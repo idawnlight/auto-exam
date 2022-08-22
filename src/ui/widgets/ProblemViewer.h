@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file ProblemViewer.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Viewer Layout
  * @date 2022/8/19
  */
 
@@ -18,7 +18,8 @@
 #include "problemViewer/ShortAnswerProblemViewer.h"
 #include "NavigatorWidget.h"
 
-class ProblemViewer : public QVBoxLayout {
+class ProblemViewer : public QVBoxLayout
+{
     Q_OBJECT
 
 public:
@@ -43,15 +44,15 @@ protected:
     json answer;
     bool evaluated = false;
 
-    QStackedWidget* stackedWidget;
-    QWidget* emptyWidget;
+    QStackedWidget *stackedWidget;
+    QWidget *emptyWidget;
 
-    SingleChoiceProblemViewer* singleChoiceProblemViewer;
-    MultipleChoiceProblemViewer* multipleChoiceProblemViewer;
-    TrueOrFalseProblemViewer* trueOrFalseProblemViewer;
-    ShortAnswerProblemViewer* shortAnswerProblemViewer;
+    SingleChoiceProblemViewer *singleChoiceProblemViewer;
+    MultipleChoiceProblemViewer *multipleChoiceProblemViewer;
+    TrueOrFalseProblemViewer *trueOrFalseProblemViewer;
+    ShortAnswerProblemViewer *shortAnswerProblemViewer;
 
-    NavigatorWidget* navigatorWidget;
+    NavigatorWidget *navigatorWidget;
 };
 
 

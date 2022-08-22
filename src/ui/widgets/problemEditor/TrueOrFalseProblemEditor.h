@@ -2,7 +2,6 @@
  * @project Automatic Examination
  * @file TrueOrFalseProblemEditor.h
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
@@ -13,7 +12,8 @@
 #include "BaseProblemEditor.h"
 #include "../RemovableLabel.h"
 
-class TrueOrFalseProblemEditor : public BaseProblemEditor {
+class TrueOrFalseProblemEditor : public BaseProblemEditor
+{
     Q_OBJECT
 
 public:
@@ -21,7 +21,6 @@ public:
 
     void setProblem(std::shared_ptr<TrueOrFalseProblem> p);
     std::shared_ptr<TrueOrFalseProblem> getProblem();
-
     void refresh() override;
 
 public slots:
@@ -34,7 +33,7 @@ signals:
 
 protected:
     std::shared_ptr<TrueOrFalseProblem> problem;
-    QVBoxLayout * optionLayout;
+    QVBoxLayout *optionLayout;
     QList<RemovableLabel *> options;
 
 };

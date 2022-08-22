@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file ProblemEditor.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Editor
  * @date 2022/8/15
  */
 
@@ -18,11 +18,13 @@
 #include "problemEditor/ShortAnswerProblemEditor.h"
 #include "NavigatorWidget.h"
 
-class ProblemEditor : public QVBoxLayout {
+class ProblemEditor : public QVBoxLayout
+{
     Q_OBJECT
 
 public:
     ProblemEditor(QWidget *parent = nullptr, std::shared_ptr<BaseProblem> problem = nullptr);
+
     void refresh();
 
 public slots:
@@ -42,16 +44,16 @@ protected:
     int currentIndex;
     std::shared_ptr<BaseProblem> problem;
 
-    QStackedWidget* stackedWidget;
-    QWidget* emptyWidget;
+    QStackedWidget *stackedWidget;
+    QWidget *emptyWidget;
 
-    SingleChoiceProblemEditor* singleChoiceProblemEditor;
-    MultipleChoiceProblemEditor* multipleChoiceProblemEditor;
-    TrueOrFalseProblemEditor* trueOrFalseProblemEditor;
-    ShortAnswerProblemEditor* shortAnswerProblemEditor;
+    SingleChoiceProblemEditor *singleChoiceProblemEditor;
+    MultipleChoiceProblemEditor *multipleChoiceProblemEditor;
+    TrueOrFalseProblemEditor *trueOrFalseProblemEditor;
+    ShortAnswerProblemEditor *shortAnswerProblemEditor;
 
-    NavigatorWidget* navigatorWidget;
-    QPushButton* removeButton;
+    NavigatorWidget *navigatorWidget;
+    QPushButton *removeButton;
 };
 
 

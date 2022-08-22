@@ -11,7 +11,8 @@
 
 #include "../BaseProblem.h"
 
-class SingleChoiceProblem : public BaseProblem {
+class SingleChoiceProblem : public BaseProblem
+{
 protected:
     int answer;
     std::vector<std::string> options;
@@ -24,9 +25,7 @@ public:
     void setAnswer(int answer);
     std::vector<std::string> &getOptions();
     void setOptions(const std::vector<std::string> &options);
-
     double evaluate(json ans) override;
-
     json toJson() override;
 };
 

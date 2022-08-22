@@ -2,14 +2,14 @@
  * @project Automatic Examination
  * @file SingleChoiceProblemEditor.cpp
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
 #include "SingleChoiceProblemEditor.h"
 
 SingleChoiceProblemEditor::SingleChoiceProblemEditor(QWidget *parent)
-    : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
+        : BaseProblemEditor(parent), optionLayout(new QVBoxLayout)
+{
 
     layout->addLayout(optionLayout);
 
@@ -20,31 +20,37 @@ SingleChoiceProblemEditor::SingleChoiceProblemEditor(QWidget *parent)
     layout->addLayout(buttonLayout);
 }
 
-void SingleChoiceProblemEditor::setProblem(std::shared_ptr<SingleChoiceProblem> p) {
+void SingleChoiceProblemEditor::setProblem(std::shared_ptr<SingleChoiceProblem> p)
+{
     this->problem = p;
     noSaving = true;
     refresh();
     noSaving = false;
 }
 
-std::shared_ptr<SingleChoiceProblem> SingleChoiceProblemEditor::getProblem() {
+std::shared_ptr<SingleChoiceProblem> SingleChoiceProblemEditor::getProblem()
+{
     return this->problem;
 }
 
-void SingleChoiceProblemEditor::refresh() {
-    if (this->problem == nullptr) {
+void SingleChoiceProblemEditor::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
     contentEdit->setPlainText(QString::fromStdString(this->problem->getContent()));
 
-    for (auto option : this->options) {
+    for (auto option: this->options)
+    {
         delete option;
     }
 
     this->options.clear();
 
-    for (int i = 0; i < this->problem->getOptions().size(); i++) {
+    for (int i = 0; i < this->problem->getOptions().size(); i++)
+    {
         auto option = new RemovableLineEdit(i, QString::fromStdString(this->problem->getOptions()[i]));
         option->enableRadio(contentEdit, i == this->problem->getAnswer());
         connect(option, &RemovableLineEdit::radio, this, &SingleChoiceProblemEditor::setAnswer);
@@ -55,7 +61,8 @@ void SingleChoiceProblemEditor::refresh() {
     }
 }
 
-void SingleChoiceProblemEditor::addOption() {
+void SingleChoiceProblemEditor::addOption()
+{
     auto option = new RemovableLineEdit(options.count());
 
     option->enableRadio(contentEdit);
@@ -68,31 +75,37 @@ void SingleChoiceProblemEditor::addOption() {
     optionLayout->addLayout(option);
 }
 
-void SingleChoiceProblemEditor::removeOption(int index) {
+void SingleChoiceProblemEditor::removeOption(int index)
+{
     delete this->options[index];
     this->options.erase(this->options.begin() + index);
 
     saveProblem();
 }
 
-void SingleChoiceProblemEditor::setAnswer(int index) {
+void SingleChoiceProblemEditor::setAnswer(int index)
+{
     this->problem->setAnswer(index);
 }
 
-void SingleChoiceProblemEditor::setScore() {
+void SingleChoiceProblemEditor::setScore()
+{
     bool ok;
     double d = QInputDialog::getDouble(this, "设定分值",
                                        "分值", this->problem->getScore(), 0, 100, 2, &ok,
                                        Qt::WindowFlags(), 1);
-    if (ok) {
+    if (ok)
+    {
         this->problem->setScore(d);
 
         emit problemChanged(this->problem);
     }
 }
 
-void SingleChoiceProblemEditor::saveProblem() {
-    if (this->problem == nullptr || noSaving) {
+void SingleChoiceProblemEditor::saveProblem()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 
@@ -100,7 +113,8 @@ void SingleChoiceProblemEditor::saveProblem() {
 
     std::vector<std::string> problemOptions;
 
-    for (int i = 0; i < options.count(); i++) {
+    for (int i = 0; i < options.count(); i++)
+    {
         problemOptions.push_back(options[i]->getContent().toStdString());
     }
 

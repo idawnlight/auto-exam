@@ -12,26 +12,31 @@
 #include <QtWidgets>
 #include "models/BaseProblem.h"
 
-class BaseProblemViewer : public QWidget {
+class BaseProblemViewer : public QWidget
+{
     Q_OBJECT
 
 public:
     explicit BaseProblemViewer(QWidget *parent = nullptr);
 
     virtual void refresh() = 0;
+
     virtual void setEvaluated();
 
-public slots:
+public
+    slots:
+
     virtual void saveAnswer() = 0;
 
-signals:
-    void answerChanged(json answer);
+    signals:
+            void answerChanged(json
+    answer);
 
 protected:
-    QVBoxLayout * layout;
+    QVBoxLayout *layout;
     json userAnswer;
-    QLabel * problemContent;
-    QLabel * problemAnswer;
+    QLabel *problemContent;
+    QLabel *problemAnswer;
     bool noSaving = false;
     bool evaluated = false;
 };

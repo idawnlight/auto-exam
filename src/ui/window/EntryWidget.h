@@ -11,7 +11,8 @@
 
 #include <QtWidgets>
 
-class EntryWidget : public QWidget {
+class EntryWidget : public QWidget
+{
     Q_OBJECT
 
 public:

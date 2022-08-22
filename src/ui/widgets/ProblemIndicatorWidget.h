@@ -14,19 +14,19 @@
 #include "models/AnswerPaper.h"
 #include "NavigatorWidget.h"
 
-class ProblemIndicatorWidget : public QScrollArea {
+class ProblemIndicatorWidget : public QScrollArea
+{
     Q_OBJECT
+
 public:
     ProblemIndicatorWidget(std::shared_ptr<Paper>, bool isEditing = false);
     ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
-
     void setAnswerPaper(std::shared_ptr<AnswerPaper>);
-
     void touchPaper();
     double evaluate();
 
 public slots:
-    void problemClicked(QAbstractButton *button);
+    void problemClicked(QAbstractButton * button);
     void addProblem();
     void navigateProblem(int index);
     void removeProblem(int index);
@@ -39,8 +39,8 @@ signals:
 protected:
     bool isEditing = false;
     const QSize btnSize = QSize(64, 50);
-    QGridLayout* layout;
-    QButtonGroup* buttonGroup;
+    QGridLayout *layout;
+    QButtonGroup *buttonGroup;
     QList<QPushButton *> buttons;
     std::shared_ptr<AnswerPaper> answerPaper;
 

@@ -17,7 +17,8 @@
 #include "../widgets/ProblemEditor.h"
 #include "../widgets/ProblemLabel.h"
 
-class EditWindow : public QWidget {
+class EditWindow : public QWidget
+{
     Q_OBJECT
 
 public slots:
@@ -32,10 +33,10 @@ public:
     EditWindow(QWidget *parent = nullptr);
 
 protected:
-    EditInfoLayout * leftInfoLayout;
-    ProblemEditor * problemEditor;
-    ProblemLabel * problemLabel;
-    ProblemIndicatorWidget * problemIndicator;
+    EditInfoLayout *leftInfoLayout;
+    ProblemEditor *problemEditor;
+    ProblemLabel *problemLabel;
+    ProblemIndicatorWidget *problemIndicator;
 
     std::shared_ptr<Paper> paper;
 

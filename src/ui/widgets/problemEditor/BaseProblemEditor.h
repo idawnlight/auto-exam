@@ -2,7 +2,6 @@
  * @project Automatic Examination
  * @file BaseProblemEditor.h
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/18
  */
 
@@ -11,7 +10,8 @@
 
 #include <QtWidgets>
 
-class BaseProblemEditor : public QWidget {
+class BaseProblemEditor : public QWidget
+{
     Q_OBJECT
 
 public:
@@ -24,9 +24,9 @@ public slots:
     virtual void saveProblem() = 0;
 
 protected:
-    QVBoxLayout * layout;
-    QPlainTextEdit * contentEdit;
-    QHBoxLayout * buttonLayout;
+    QVBoxLayout *layout;
+    QPlainTextEdit *contentEdit;
+    QHBoxLayout *buttonLayout;
     bool noSaving = false;
 };
 

@@ -10,8 +10,9 @@
 #include "ExamWindow.h"
 
 ExamWindow::ExamWindow(QWidget *parent)
-    : QWidget(parent), leftInfoLayout(new ExamInfoLayout()), problemViewer(new ProblemViewer()),
-      problemLabel(new ProblemLabel()), paper(std::make_shared<Paper>()) {
+        : QWidget(parent), leftInfoLayout(new ExamInfoLayout()), problemViewer(new ProblemViewer()),
+          problemLabel(new ProblemLabel()), paper(std::make_shared<Paper>())
+{
     auto mainLayout = new QHBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("答题 - 自动考试系统");
@@ -40,8 +41,6 @@ ExamWindow::ExamWindow(QWidget *parent)
     connect(problemViewer, &ProblemViewer::problemChanged, this, &ExamWindow::paperChangedShim);
 
     // Right Part: Problem Indicator / Navigator
-//    paper = std::make_shared<Paper>();
-//    paper->mock();
     problemIndicator = new ProblemIndicatorWidget(paper);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);
@@ -60,11 +59,13 @@ ExamWindow::ExamWindow(QWidget *parent)
     mainLayout->addLayout(rightLayout, 1);
 }
 
-void ExamWindow::paperChangedShim() {
+void ExamWindow::paperChangedShim()
+{
     emit paperChanged(paper);
 }
 
-void ExamWindow::evaluate() {
+void ExamWindow::evaluate()
+{
     submitButton->setDisabled(true);
     submitButton->setText("已交卷");
     problemViewer->setEvaluated();
@@ -72,25 +73,26 @@ void ExamWindow::evaluate() {
     double score = problemIndicator->evaluate();
 
     leftInfoLayout->setScore(score);
-
-//    qDebug() << "evaluate";
-//    qDebug() << score;
 }
 
-void ExamWindow::show() {
+void ExamWindow::show()
+{
     QString fileName = QFileDialog::getOpenFileName(this, "打开试卷", "", "JSON Paper (*.json *.paper)");
 
-    if (fileName != "") {
+    if (fileName != "")
+    {
         std::ifstream f(fileName.toStdString());
         json data = json::parse(f);
 
-//        try {
+        try
+        {
             paper = std::make_shared<Paper>(Paper::fromJson(data));
             problemIndicator->setAnswerPaper(std::make_shared<AnswerPaper>(paper));
 
             QWidget::show();
-//        } catch (std::exception e) {
-//            QMessageBox::critical(this, "打开失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
-//        }
+        } catch (std::exception e)
+        {
+            QMessageBox::critical(this, "打开失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
+        }
     }
 }

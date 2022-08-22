@@ -2,14 +2,14 @@
  * @project Automatic Examination
  * @file MultipleChoiceProblemEditor.cpp
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
 #include "MultipleChoiceProblemEditor.h"
 
 MultipleChoiceProblemEditor::MultipleChoiceProblemEditor(QWidget *parent)
-    : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
+        : BaseProblemEditor(parent), optionLayout(new QVBoxLayout)
+{
 
     layout->addLayout(optionLayout);
 
@@ -20,31 +20,37 @@ MultipleChoiceProblemEditor::MultipleChoiceProblemEditor(QWidget *parent)
     layout->addLayout(buttonLayout);
 }
 
-void MultipleChoiceProblemEditor::setProblem(std::shared_ptr<MultipleChoiceProblem> p) {
+void MultipleChoiceProblemEditor::setProblem(std::shared_ptr<MultipleChoiceProblem> p)
+{
     this->problem = p;
     noSaving = true;
     refresh();
     noSaving = false;
 }
 
-std::shared_ptr<MultipleChoiceProblem> MultipleChoiceProblemEditor::getProblem() {
+std::shared_ptr<MultipleChoiceProblem> MultipleChoiceProblemEditor::getProblem()
+{
     return this->problem;
 }
 
-void MultipleChoiceProblemEditor::refresh() {
-    if (this->problem == nullptr) {
+void MultipleChoiceProblemEditor::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
     contentEdit->setPlainText(QString::fromStdString(this->problem->getContent()));
 
-    for (auto option : this->options) {
+    for (auto option: this->options)
+    {
         delete option;
     }
 
     this->options.clear();
 
-    for (int i = 0; i < this->problem->getOptions().size(); i++) {
+    for (int i = 0; i < this->problem->getOptions().size(); i++)
+    {
         auto option = new RemovableLineEdit(i, QString::fromStdString(this->problem->getOptions()[i]));
         auto answers = this->problem->getAnswer();
         option->enableCheckbox(contentEdit, answers.find(i) != answers.end());
@@ -56,7 +62,8 @@ void MultipleChoiceProblemEditor::refresh() {
     }
 }
 
-void MultipleChoiceProblemEditor::addOption() {
+void MultipleChoiceProblemEditor::addOption()
+{
     auto option = new RemovableLineEdit(options.count());
 
     option->enableCheckbox(contentEdit);
@@ -69,18 +76,22 @@ void MultipleChoiceProblemEditor::addOption() {
     optionLayout->addLayout(option);
 }
 
-void MultipleChoiceProblemEditor::removeOption(int index) {
+void MultipleChoiceProblemEditor::removeOption(int index)
+{
     delete this->options[index];
     this->options.erase(this->options.begin() + index);
 
     saveProblem();
 }
 
-void MultipleChoiceProblemEditor::setAnswer() {
+void MultipleChoiceProblemEditor::setAnswer()
+{
     std::set<int> answers;
 
-    for (int i = 0; i < options.count(); i++) {
-        if (options[i]->isCheckBoxChecked()) {
+    for (int i = 0; i < options.count(); i++)
+    {
+        if (options[i]->isCheckBoxChecked())
+        {
             answers.insert(i);
         }
     }
@@ -88,20 +99,24 @@ void MultipleChoiceProblemEditor::setAnswer() {
     this->problem->setAnswer(answers);
 }
 
-void MultipleChoiceProblemEditor::setScore() {
+void MultipleChoiceProblemEditor::setScore()
+{
     bool ok;
     double d = QInputDialog::getDouble(this, "设定分值",
                                        "分值", this->problem->getScore(), 0, 100, 2, &ok,
                                        Qt::WindowFlags(), 1);
-    if (ok) {
+    if (ok)
+    {
         this->problem->setScore(d);
 
         emit problemChanged(this->problem);
     }
 }
 
-void MultipleChoiceProblemEditor::saveProblem() {
-    if (this->problem == nullptr || noSaving) {
+void MultipleChoiceProblemEditor::saveProblem()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 
@@ -109,7 +124,8 @@ void MultipleChoiceProblemEditor::saveProblem() {
 
     std::vector<std::string> problemOptions;
 
-    for (int i = 0; i < options.count(); i++) {
+    for (int i = 0; i < options.count(); i++)
+    {
         problemOptions.push_back(options[i]->getContent().toStdString());
     }
 

@@ -13,7 +13,8 @@
 
 #include "../BaseProblem.h"
 
-class MultipleChoiceProblem : public BaseProblem {
+class MultipleChoiceProblem : public BaseProblem
+{
 protected:
     std::set<int> answer;
     std::vector<std::string> options;
@@ -27,9 +28,7 @@ public:
     const std::vector<std::string> &getOptions() const;
     void setOptions(const std::vector<std::string> &options);
     std::string getAnswerString();
-
     double evaluate(json ans) override;
-
     json toJson() override;
 };
 

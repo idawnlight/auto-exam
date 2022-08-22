@@ -2,14 +2,14 @@
  * @project Automatic Examination
  * @file TrueOrFalseProblemEditor.cpp
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
  * @date 2022/8/16
  */
 
 #include "TrueOrFalseProblemEditor.h"
 
 TrueOrFalseProblemEditor::TrueOrFalseProblemEditor(QWidget *parent)
-    : BaseProblemEditor(parent), optionLayout(new QVBoxLayout) {
+        : BaseProblemEditor(parent), optionLayout(new QVBoxLayout)
+{
 
     auto optionRight = new RemovableLabel(1, QString("正确"));
     optionRight->enableRadio(contentEdit);
@@ -32,19 +32,23 @@ TrueOrFalseProblemEditor::TrueOrFalseProblemEditor(QWidget *parent)
     layout->addStretch();
 }
 
-void TrueOrFalseProblemEditor::setProblem(std::shared_ptr<TrueOrFalseProblem> p) {
+void TrueOrFalseProblemEditor::setProblem(std::shared_ptr<TrueOrFalseProblem> p)
+{
     this->problem = p;
     noSaving = true;
     refresh();
     noSaving = false;
 }
 
-std::shared_ptr<TrueOrFalseProblem> TrueOrFalseProblemEditor::getProblem() {
+std::shared_ptr<TrueOrFalseProblem> TrueOrFalseProblemEditor::getProblem()
+{
     return this->problem;
 }
 
-void TrueOrFalseProblemEditor::refresh() {
-    if (this->problem == nullptr) {
+void TrueOrFalseProblemEditor::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
@@ -54,24 +58,29 @@ void TrueOrFalseProblemEditor::refresh() {
     options[1]->setRadioChecked(this->problem->getAnswer());
 }
 
-void TrueOrFalseProblemEditor::setAnswer(int index) {
+void TrueOrFalseProblemEditor::setAnswer(int index)
+{
     this->problem->setAnswer(index);
 }
 
-void TrueOrFalseProblemEditor::setScore() {
+void TrueOrFalseProblemEditor::setScore()
+{
     bool ok;
     double d = QInputDialog::getDouble(this, "设定分值",
                                        "分值", this->problem->getScore(), 0, 100, 2, &ok,
                                        Qt::WindowFlags(), 1);
-    if (ok) {
+    if (ok)
+    {
         this->problem->setScore(d);
 
         emit problemChanged(this->problem);
     }
 }
 
-void TrueOrFalseProblemEditor::saveProblem() {
-    if (this->problem == nullptr || noSaving) {
+void TrueOrFalseProblemEditor::saveProblem()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 

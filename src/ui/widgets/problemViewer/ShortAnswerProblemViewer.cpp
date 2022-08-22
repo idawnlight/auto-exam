@@ -9,11 +9,13 @@
 #include "ShortAnswerProblemViewer.h"
 
 ShortAnswerProblemViewer::ShortAnswerProblemViewer(QWidget *parent)
-    : BaseProblemViewer(parent), answerEdit(new QPlainTextEdit) {
+        : BaseProblemViewer(parent), answerEdit(new QPlainTextEdit)
+{
     layout->addWidget(answerEdit);
 }
 
-void ShortAnswerProblemViewer::setProblem(std::shared_ptr<ShortAnswerProblem> p, json answer) {
+void ShortAnswerProblemViewer::setProblem(std::shared_ptr<ShortAnswerProblem> p, json answer)
+{
     this->problem = p;
     this->userAnswer = answer;
 
@@ -22,12 +24,15 @@ void ShortAnswerProblemViewer::setProblem(std::shared_ptr<ShortAnswerProblem> p,
     noSaving = false;
 }
 
-std::shared_ptr<ShortAnswerProblem> ShortAnswerProblemViewer::getProblem() {
+std::shared_ptr<ShortAnswerProblem> ShortAnswerProblemViewer::getProblem()
+{
     return this->problem;
 }
 
-void ShortAnswerProblemViewer::refresh() {
-    if (this->problem == nullptr) {
+void ShortAnswerProblemViewer::refresh()
+{
+    if (this->problem == nullptr)
+    {
         return;
     }
 
@@ -37,7 +42,8 @@ void ShortAnswerProblemViewer::refresh() {
     if (evaluated) problemAnswer->setVisible(true);
 
     std::string userAnswerStr;
-    if (userAnswer.is_array() && !userAnswer.empty()) {
+    if (userAnswer.is_array() && !userAnswer.empty())
+    {
         userAnswerStr = userAnswer[0];
     }
 
@@ -45,15 +51,18 @@ void ShortAnswerProblemViewer::refresh() {
     connect(answerEdit, &QPlainTextEdit::textChanged, this, &ShortAnswerProblemViewer::saveAnswer);
 }
 
-void ShortAnswerProblemViewer::setEvaluated() {
+void ShortAnswerProblemViewer::setEvaluated()
+{
     BaseProblemViewer::setEvaluated();
     problemAnswer->setVisible(true);
 
     answerEdit->setReadOnly(true);
 }
 
-void ShortAnswerProblemViewer::saveAnswer() {
-    if (this->problem == nullptr || noSaving) {
+void ShortAnswerProblemViewer::saveAnswer()
+{
+    if (this->problem == nullptr || noSaving)
+    {
         return;
     }
 

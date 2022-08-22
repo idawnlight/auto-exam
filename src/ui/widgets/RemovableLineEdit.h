@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file RemovableLineEdit.h
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Removable Line Edit
  * @date 2022/8/18
  */
 
@@ -11,7 +11,8 @@
 
 #include <QtWidgets>
 
-class RemovableLineEdit : public QHBoxLayout {
+class RemovableLineEdit : public QHBoxLayout
+{
     Q_OBJECT
 
 public:
@@ -19,8 +20,8 @@ public:
     ~RemovableLineEdit();
     QString getContent();
     bool isCheckBoxChecked();
-    void enableRadio(QWidget * parent, bool checked = false);
-    void enableCheckbox(QWidget * parent, bool checked = false);
+    void enableRadio(QWidget *parent, bool checked = false);
+    void enableCheckbox(QWidget *parent, bool checked = false);
 
 signals:
     void remove(int index);
@@ -33,10 +34,10 @@ protected slots:
     void radioShim();
 
 protected:
-    QLineEdit * lineEdit;
-    QPushButton * removeButton;
-    QRadioButton * radioButton;
-    QCheckBox * checkBox;
+    QLineEdit *lineEdit;
+    QPushButton *removeButton;
+    QRadioButton *radioButton;
+    QCheckBox *checkBox;
     int index;
 };
 

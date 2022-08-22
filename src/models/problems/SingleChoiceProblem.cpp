@@ -8,43 +8,53 @@
 
 #include "SingleChoiceProblem.h"
 
-SingleChoiceProblem::SingleChoiceProblem() {
+SingleChoiceProblem::SingleChoiceProblem()
+{
     problemType = SingleChoice;
     answer = 0;
 }
 
-SingleChoiceProblem::SingleChoiceProblem(json j) : BaseProblem(j) {
+SingleChoiceProblem::SingleChoiceProblem(json j) : BaseProblem(j)
+{
     j.at("answer").get_to(answer);
     j.at("options").get_to(options);
 }
 
-json SingleChoiceProblem::toJson() {
+json SingleChoiceProblem::toJson()
+{
     auto j = BaseProblem::toJson();
     j["answer"] = answer;
     j["options"] = options;
     return j;
 }
 
-int SingleChoiceProblem::getAnswer() const {
+int SingleChoiceProblem::getAnswer() const
+{
     return answer;
 }
 
-void SingleChoiceProblem::setAnswer(int answer) {
+void SingleChoiceProblem::setAnswer(int answer)
+{
     this->answer = answer;
 }
 
-std::vector<std::string> &SingleChoiceProblem::getOptions() {
+std::vector<std::string> &SingleChoiceProblem::getOptions()
+{
     return options;
 }
 
-void SingleChoiceProblem::setOptions(const std::vector<std::string> &options) {
+void SingleChoiceProblem::setOptions(const std::vector<std::string> &options)
+{
     this->options = options;
 }
 
-double SingleChoiceProblem::evaluate(json ans) {
-    if (!ans.is_array() || ans.empty() || ans[0] != answer) {
+double SingleChoiceProblem::evaluate(json ans)
+{
+    if (!ans.is_array() || ans.empty() || ans[0] != answer)
+    {
         return 0;
-    } else {
+    } else
+    {
         return score;
     }
 }

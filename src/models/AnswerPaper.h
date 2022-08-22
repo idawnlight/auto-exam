@@ -11,7 +11,8 @@
 
 #include "Paper.h"
 
-class AnswerPaper {
+class AnswerPaper
+{
 public:
     explicit AnswerPaper();
     explicit AnswerPaper(const std::shared_ptr<Paper> &paper);

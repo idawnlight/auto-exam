@@ -2,23 +2,28 @@
  * @project Automatic Examination
  * @file ProblemLabel.cpp
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Label for problem info
  * @date 2022/8/17
  */
 
 #include "ProblemLabel.h"
 
-ProblemLabel::ProblemLabel(QWidget * parent) : QLabel("<h2>当前题目</h2>", parent) {
+ProblemLabel::ProblemLabel(QWidget *parent) : QLabel("<h2>当前题目</h2>", parent)
+{
 
 }
 
-void ProblemLabel::setProblem(std::shared_ptr<BaseProblem> p) {
-    if (!p) {
+void ProblemLabel::setProblem(std::shared_ptr<BaseProblem> p)
+{
+    if (!p)
+    {
         setText("<h2>当前题目</h2>");
-    } else {
+    } else
+    {
         QString problemType;
 
-        switch (p->getProblemType()) {
+        switch (p->getProblemType())
+        {
             case ProblemType::SingleChoice:
                 problemType = "单选题";
                 break;

@@ -2,22 +2,23 @@
  * @project Automatic Examination
  * @file ProblemEditor.cpp
  * @location src/ui/widgets
- * @brief This message displayed in Doxygen Files index
+ * @brief Problem Editor
  * @date 2022/8/15
  */
 
 #include "ProblemEditor.h"
 
 ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> problem)
-    : QVBoxLayout(parent),
-      stackedWidget(new QStackedWidget()),
-      problem(problem),
-      emptyWidget(new QWidget),
-      singleChoiceProblemEditor(new SingleChoiceProblemEditor),
-      multipleChoiceProblemEditor(new MultipleChoiceProblemEditor),
-      trueOrFalseProblemEditor(new TrueOrFalseProblemEditor),
-      shortAnswerProblemEditor(new ShortAnswerProblemEditor),
-      navigatorWidget(new NavigatorWidget) {
+        : QVBoxLayout(parent),
+          stackedWidget(new QStackedWidget()),
+          problem(problem),
+          emptyWidget(new QWidget),
+          singleChoiceProblemEditor(new SingleChoiceProblemEditor),
+          multipleChoiceProblemEditor(new MultipleChoiceProblemEditor),
+          trueOrFalseProblemEditor(new TrueOrFalseProblemEditor),
+          shortAnswerProblemEditor(new ShortAnswerProblemEditor),
+          navigatorWidget(new NavigatorWidget)
+{
     addWidget(stackedWidget);
 
     stackedWidget->addWidget(singleChoiceProblemEditor);
@@ -51,15 +52,19 @@ ProblemEditor::ProblemEditor(QWidget *parent, std::shared_ptr<BaseProblem> probl
 
     addLayout(bottomLayout, 0);
 
-    if (problem != nullptr) {
+    if (problem != nullptr)
+    {
         refresh();
-    } else {
+    } else
+    {
         stackedWidget->setCurrentWidget(emptyWidget);
     }
 }
 
-void ProblemEditor::refresh() {
-    if (this->problem == nullptr) {
+void ProblemEditor::refresh()
+{
+    if (this->problem == nullptr)
+    {
         removeButton->setEnabled(false);
         navigatorWidget->setStatus(NavigatorStatus::None);
         stackedWidget->setCurrentWidget(emptyWidget);
@@ -68,7 +73,8 @@ void ProblemEditor::refresh() {
 
     removeButton->setEnabled(true);
 
-    switch (problem->getProblemType()) {
+    switch (problem->getProblemType())
+    {
         case SingleChoice:
         {
             auto tmp = std::static_pointer_cast<SingleChoiceProblem>(this->problem);
@@ -101,7 +107,8 @@ void ProblemEditor::refresh() {
     stackedWidget->setCurrentIndex(problem->getProblemType());
 }
 
-void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status) {
+void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, NavigatorStatus status)
+{
     currentIndex = index;
     this->problem = problem;
     navigatorWidget->setStatus(status);
@@ -110,18 +117,22 @@ void ProblemEditor::setProblem(std::shared_ptr<BaseProblem> problem, int index, 
     emit problemChanged(problem);
 }
 
-void ProblemEditor::removeProblemClicked() {
+void ProblemEditor::removeProblemClicked()
+{
     int ret = QMessageBox::question(nullptr, "删除问题", "确定删除该问题吗？");
 
-    if (ret == QMessageBox::Yes) {
+    if (ret == QMessageBox::Yes)
+    {
         emit removeProblem(currentIndex);
     }
 }
 
-void ProblemEditor::navigateProblemPrevious() {
+void ProblemEditor::navigateProblemPrevious()
+{
     emit navigateProblem(currentIndex - 1);
 }
 
-void ProblemEditor::navigateProblemNext() {
+void ProblemEditor::navigateProblemNext()
+{
     emit navigateProblem(currentIndex + 1);
 }

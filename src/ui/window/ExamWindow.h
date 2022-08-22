@@ -17,7 +17,8 @@
 #include "../widgets/ProblemViewer.h"
 #include "../widgets/ProblemLabel.h"
 
-class ExamWindow : public QWidget {
+class ExamWindow : public QWidget
+{
     Q_OBJECT
 
 public:
@@ -32,11 +33,11 @@ signals:
     void paperChanged(std::shared_ptr<Paper>);
 
 protected:
-    ExamInfoLayout * leftInfoLayout;
-    QPushButton * submitButton;
-    ProblemViewer * problemViewer;
-    ProblemLabel * problemLabel;
-    ProblemIndicatorWidget * problemIndicator;
+    ExamInfoLayout *leftInfoLayout;
+    QPushButton *submitButton;
+    ProblemViewer *problemViewer;
+    ProblemLabel *problemLabel;
+    ProblemIndicatorWidget *problemIndicator;
 
     std::shared_ptr<Paper> paper;
 };

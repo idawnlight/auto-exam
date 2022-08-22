@@ -13,7 +13,8 @@
 
 using json = nlohmann::json;
 
-enum ProblemType {
+enum ProblemType
+{
     SingleChoice = 0,
     MultipleChoice = 1,
     TrueOrFalse = 2,
@@ -21,7 +22,8 @@ enum ProblemType {
     Default = -1
 };
 
-class BaseProblem {
+class BaseProblem
+{
 protected:
     ProblemType problemType = Default;
     double score;
@@ -39,7 +41,6 @@ public:
     void setContent(const std::string &content);
 
     virtual double evaluate(json ans);
-
     virtual int checkAnswer(json) const;
     virtual json toJson();
 };

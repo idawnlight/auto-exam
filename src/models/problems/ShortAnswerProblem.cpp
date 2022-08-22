@@ -8,40 +8,51 @@
 
 #include "ShortAnswerProblem.h"
 
-ShortAnswerProblem::ShortAnswerProblem() {
+ShortAnswerProblem::ShortAnswerProblem()
+{
     problemType = ShortAnswer;
     keywords = std::set<std::string>();
 }
 
-json ShortAnswerProblem::toJson() {
+json ShortAnswerProblem::toJson()
+{
     auto j = BaseProblem::toJson();
     j["keywords"] = keywords;
     return j;
 }
 
-ShortAnswerProblem::ShortAnswerProblem(json j) : BaseProblem(j) {
+ShortAnswerProblem::ShortAnswerProblem(json j) : BaseProblem(j)
+{
     j.at("keywords").get_to(keywords);
 }
 
-const std::set<std::string> &ShortAnswerProblem::getKeywords() const {
+const std::set<std::string> &ShortAnswerProblem::getKeywords() const
+{
     return keywords;
 }
 
-void ShortAnswerProblem::setKeywords(const std::set<std::string> &keywords) {
+void ShortAnswerProblem::setKeywords(const std::set<std::string> &keywords)
+{
     ShortAnswerProblem::keywords = keywords;
 }
 
-double ShortAnswerProblem::evaluate(json ans) {
-    if (!ans.is_array() || ans.empty()) {
+double ShortAnswerProblem::evaluate(json ans)
+{
+    if (!ans.is_array() || ans.empty())
+    {
         return 0;
-    } else if (keywords.empty()) {
+    } else if (keywords.empty())
+    {
         return score;
-    } else {
+    } else
+    {
         std::string sAns = ans[0];
         int part = 0;
 
-        for (auto keyword : keywords) {
-            if (sAns.find(keyword) != std::string::npos) {
+        for (auto keyword: keywords)
+        {
+            if (sAns.find(keyword) != std::string::npos)
+            {
                 part++;
             }
         }
@@ -50,18 +61,23 @@ double ShortAnswerProblem::evaluate(json ans) {
     }
 }
 
-std::string ShortAnswerProblem::getKeywordsString() {
-    if (keywords.empty()) {
+std::string ShortAnswerProblem::getKeywordsString()
+{
+    if (keywords.empty())
+    {
         return "";
     }
 
     std::string keywordsString = "";
     bool first = true;
 
-    for (auto i : keywords) {
-        if (!first) {
+    for (auto i: keywords)
+    {
+        if (!first)
+        {
             keywordsString += "，";
-        } else {
+        } else
+        {
             first = false;
         }
         keywordsString += i;

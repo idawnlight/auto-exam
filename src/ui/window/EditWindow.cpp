@@ -10,8 +10,9 @@
 #include "EditWindow.h"
 
 EditWindow::EditWindow(QWidget *parent)
-    : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()),
-      problemLabel(new ProblemLabel()), paper(std::make_shared<Paper>()) {
+        : QWidget(parent), leftInfoLayout(new EditInfoLayout()), problemEditor(new ProblemEditor()),
+          problemLabel(new ProblemLabel()), paper(std::make_shared<Paper>())
+{
     auto mainLayout = new QHBoxLayout();
     setLayout(mainLayout);
     setWindowTitle("制卷 - 自动考试系统");
@@ -60,21 +61,19 @@ EditWindow::EditWindow(QWidget *parent)
     mainLayout->addLayout(centerLayout, 2);
     mainLayout->setAlignment(centerLayout, Qt::AlignTop);
     mainLayout->addLayout(rightLayout, 1);
-
-//    auto rightLabel = new QLabel("<h2>选择</h2>");
-
-//    rightLayout->addWidget(rightLabel);
-
 }
 
-void EditWindow::paperChangedShim() {
+void EditWindow::paperChangedShim()
+{
     emit paperChanged(paper);
 }
 
-void EditWindow::exportPaper() {
+void EditWindow::exportPaper()
+{
     QString fileName = QFileDialog::getSaveFileName(this, "保存试卷", "paper.json", "JSON Paper (*.json *.paper)");
 
-    if (fileName != "") {
+    if (fileName != "")
+    {
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
             return;
@@ -84,17 +83,21 @@ void EditWindow::exportPaper() {
     }
 }
 
-void EditWindow::importPaper() {
+void EditWindow::importPaper()
+{
     QString fileName = QFileDialog::getOpenFileName(this, "导入试卷", "", "JSON Paper (*.json *.paper)");
 
-    if (fileName != "") {
+    if (fileName != "")
+    {
         std::ifstream f(fileName.toStdString());
         json data = json::parse(f);
 
-        try {
+        try
+        {
             paper = std::make_shared<Paper>(Paper::fromJson(data));
             problemIndicator->setAnswerPaper(std::make_shared<AnswerPaper>(paper));
-        } catch (std::exception e) {
+        } catch (std::exception e)
+        {
             QMessageBox::critical(this, "导入失败", "所选择的试卷无效或存在错误。", QMessageBox::Ok);
         }
     }

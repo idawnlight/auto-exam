@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file RemovableLabel.h
  * @location src/ui/widgets/problemViewer
- * @brief This message displayed in Doxygen Files index
+ * @brief Removable Label
  * @date 2022/8/19
  */
 
@@ -11,17 +11,19 @@
 
 #include <QtWidgets>
 
-class RemovableLabel : public QHBoxLayout {
+class RemovableLabel : public QHBoxLayout
+{
     Q_OBJECT
 
 public:
     RemovableLabel(int index, QString content = "");
     ~RemovableLabel();
+
     void enableRemove();
-    void enableRadio(QWidget * parent, bool checked = false);
+    void enableRadio(QWidget *parent, bool checked = false);
     void setRadioChecked(bool checked);
     bool isRadioChecked();
-    void enableCheckbox(QWidget * parent, bool checked = false);
+    void enableCheckbox(QWidget *parent, bool checked = false);
     bool isCheckBoxChecked();
     void disable();
 
@@ -35,10 +37,10 @@ protected slots:
     void radioShim();
 
 protected:
-    QLabel * label;
-    QPushButton * removeButton;
-    QRadioButton * radioButton;
-    QCheckBox * checkBox;
+    QLabel *label;
+    QPushButton *removeButton;
+    QRadioButton *radioButton;
+    QCheckBox *checkBox;
     int index;
 };
 

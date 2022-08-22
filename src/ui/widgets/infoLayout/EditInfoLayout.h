@@ -2,7 +2,7 @@
  * @project Automatic Examination
  * @file EditInfoLayout.h
  * @location src/ui/widgets/infoLayout
- * @brief This message displayed in Doxygen Files index
+ * @brief Aligned Info Layout for editing
  * @date 2022/8/15
  */
 
@@ -12,7 +12,8 @@
 #include "../AlignedInfoLayout.h"
 #include "models/Paper.h"
 
-class EditInfoLayout : public AlignedInfoLayout {
+class EditInfoLayout : public AlignedInfoLayout
+{
     Q_OBJECT
 
 public:

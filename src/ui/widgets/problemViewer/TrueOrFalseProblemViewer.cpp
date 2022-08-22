@@ -32,6 +32,7 @@ void TrueOrFalseProblemViewer::refresh() {
     }
 
     problemContent->setText(QString::fromStdString(this->problem->getContent()));
+    problemContent->adjustSize();
     problemAnswer->setText(QString("参考答案：") + (this->problem->getAnswer() ? "正确" : "错误"));
 
     if (evaluated) problemAnswer->setVisible(true);

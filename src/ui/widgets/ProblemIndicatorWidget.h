@@ -17,16 +17,6 @@
 class ProblemIndicatorWidget : public QScrollArea {
     Q_OBJECT
 public:
-    enum ButtonType {
-        Right,
-        PartRight,
-        Wrong,
-
-        Add,
-
-        Default
-    };
-
     ProblemIndicatorWidget(std::shared_ptr<Paper>, bool isEditing = false);
     ProblemIndicatorWidget(std::shared_ptr<AnswerPaper>, bool isEditing = false);
 

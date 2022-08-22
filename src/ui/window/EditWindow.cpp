@@ -43,8 +43,6 @@ EditWindow::EditWindow(QWidget *parent)
     connect(problemEditor, &ProblemEditor::problemChanged, this, &EditWindow::paperChangedShim);
 
     // Right Part: Problem Indicator / Navigator
-//    paper = std::make_shared<Paper>();
-//    paper->mock();
     problemIndicator = new ProblemIndicatorWidget(paper, true);
     auto rightLayout = new QVBoxLayout();
     rightLayout->addWidget(problemIndicator);

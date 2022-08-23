@@ -12,12 +12,12 @@
 AnswerPaper::AnswerPaper()
 {
     paper = std::make_shared<Paper>();
-    answers.reserve(1000);
+    answers.resize(1000);
 }
 
 AnswerPaper::AnswerPaper(const std::shared_ptr<Paper> &paper) : paper(paper)
 {
-    answers.reserve(1000);
+    answers.resize(1000);
 }
 
 std::shared_ptr<Paper> AnswerPaper::getPaper()
@@ -45,7 +45,7 @@ json AnswerPaper::getAnswer(int index)
     try
     {
         return answers[index];
-    } catch (std::exception &e)
+    } catch (std::exception &)
     {
         return json::array();
     }

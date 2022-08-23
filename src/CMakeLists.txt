@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 if (APPLE)
     set(CMAKE_PREFIX_PATH "/Users/idawnlight/Qt/6.3.1/macos/lib/cmake")
+elseif (WIN32)
+    set(CMAKE_PREFIX_PATH "C:/Users/dawn/Qt/6.3.1/msvc2019_64/lib/cmake")
 endif ()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)

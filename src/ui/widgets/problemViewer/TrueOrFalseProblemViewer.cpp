@@ -51,10 +51,12 @@ void TrueOrFalseProblemViewer::refresh()
 
     auto optionRight = new RemovableLabel(1, QString("正确"));
     optionRight->enableRadio(problemContent);
+    if (evaluated) optionRight->disable();
     optionLayout->addLayout(optionRight);
 
     auto optionWrong = new RemovableLabel(0, QString("错误"));
     optionWrong->enableRadio(problemContent);
+    if (evaluated) optionWrong->disable();
     optionLayout->addLayout(optionWrong);
 
     connect(optionRight, &RemovableLabel::radio, this, &TrueOrFalseProblemViewer::saveAnswer);

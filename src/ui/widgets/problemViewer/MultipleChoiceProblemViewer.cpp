@@ -9,9 +9,9 @@
 #include "MultipleChoiceProblemViewer.h"
 
 MultipleChoiceProblemViewer::MultipleChoiceProblemViewer(QWidget *parent)
-        : BaseProblemViewer(parent), optionLayout(new QVBoxLayout)
+        : BaseProblemViewer(parent), optionWidget(new QWidget), optionLayout(new QVBoxLayout(optionWidget))
 {
-    layout->addLayout(optionLayout);
+    layout->addWidget(optionWidget);
 }
 
 void MultipleChoiceProblemViewer::setProblem(std::shared_ptr<MultipleChoiceProblem> p, json answer)

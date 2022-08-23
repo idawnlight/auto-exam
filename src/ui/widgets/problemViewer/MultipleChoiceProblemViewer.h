@@ -33,6 +33,7 @@ signals:
 
 protected:
     std::shared_ptr<MultipleChoiceProblem> problem;
+    QWidget *optionWidget;
     QVBoxLayout *optionLayout;
     QList<RemovableLabel *> options;
 

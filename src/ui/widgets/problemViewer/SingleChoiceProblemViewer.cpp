@@ -9,9 +9,9 @@
 #include "SingleChoiceProblemViewer.h"
 
 SingleChoiceProblemViewer::SingleChoiceProblemViewer(QWidget *parent)
-        : BaseProblemViewer(parent), optionLayout(new QVBoxLayout)
+        : BaseProblemViewer(parent), optionWidget(new QWidget), optionLayout(new QVBoxLayout(optionWidget))
 {
-    layout->addLayout(optionLayout);
+    layout->addWidget(optionWidget);
 }
 
 void SingleChoiceProblemViewer::setProblem(std::shared_ptr<SingleChoiceProblem> p, json answer)

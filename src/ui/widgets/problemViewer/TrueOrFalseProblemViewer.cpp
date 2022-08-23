@@ -9,9 +9,9 @@
 #include "TrueOrFalseProblemViewer.h"
 
 TrueOrFalseProblemViewer::TrueOrFalseProblemViewer(QWidget *parent)
-        : BaseProblemViewer(parent), optionLayout(new QVBoxLayout)
+        : BaseProblemViewer(parent), optionWidget(new QWidget), optionLayout(new QVBoxLayout(optionWidget))
 {
-    layout->addLayout(optionLayout);
+    layout->addWidget(optionWidget);
 }
 
 void TrueOrFalseProblemViewer::setProblem(std::shared_ptr<TrueOrFalseProblem> p, json answer)

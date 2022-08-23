@@ -11,10 +11,11 @@
 BaseProblemViewer::BaseProblemViewer(QWidget *parent)
         : QWidget(parent), layout(new QVBoxLayout(this)), problemContent(new QLabel()), problemAnswer(new QLabel())
 {
-//    problemContent->setFixedHeight(92);
     layout->setAlignment(Qt::AlignTop);
+    layout->setSizeConstraint(QLayout::SetMinimumSize);
 
     problemContent->setWordWrap(true);
+    problemContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
     layout->addWidget(problemContent);
     layout->addWidget(problemAnswer);
